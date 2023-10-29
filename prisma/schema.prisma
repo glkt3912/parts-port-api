@@ -1,0 +1,233 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int         @id @default(autoincrement())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  email          String      @unique
+  hashedPassword String
+  name           String
+  partsLists     PartsList[]
+}
+
+model PcPart {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  category     String
+  cpus         Cpu[]
+  motherboards MotherBoard[]
+  memories     Memory[]
+  hdds         Hdd[]
+  ssds         Ssd[]
+  videocards   VideoCard[]
+  powers       Power[]
+  pccases      PcCase[]
+  cpucoolers   CpuCooler[]
+  displays     Display[]
+}
+
+model PartsList {
+  id            Int          @id @default(autoincrement())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  name          String
+  publicPrivate Boolean
+  userId        Int
+  cpuId         Int?
+  motherboardId Int?
+  memoryId      Int?
+  hddId         Int?
+  ssdId         Int?
+  videocardId   Int?
+  powerId       Int?
+  pccaseId      Int?
+  cpucoolerId   Int?
+  displayId     Int?
+  user          User         @relation(fields: [userId], references: [id])
+  cpu           Cpu?         @relation(fields: [cpuId], references: [id])
+  motherboard   MotherBoard? @relation(fields: [motherboardId], references: [id])
+  memory        Memory?      @relation(fields: [memoryId], references: [id])
+  hdd           Hdd?         @relation(fields: [hddId], references: [id])
+  ssd           Ssd?         @relation(fields: [ssdId], references: [id])
+  videocard     VideoCard?   @relation(fields: [videocardId], references: [id])
+  power         Power?       @relation(fields: [powerId], references: [id])
+  pccase        PcCase?      @relation(fields: [pccaseId], references: [id])
+  cpucooler     CpuCooler?   @relation(fields: [cpucoolerId], references: [id])
+  display       Display?     @relation(fields: [displayId], references: [id])
+}
+
+model Cpu {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  processor  String
+  socket     String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model MotherBoard {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  chipset    String
+  formfactor String
+  socket     String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model Memory {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  capacity   String
+  setnumber  String
+  standard   String
+  interface  String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model Hdd {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  series     String
+  capacity   String
+  speed      String
+  interface1 String
+  interface2 String
+  cache      String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model Ssd {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  capacity   String
+  size       String
+  interface  String
+  ssdtype    String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model VideoCard {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  chip       String
+  core       String
+  memory     String
+  clock      String
+  interface  String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model Power {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  standard   String
+  capacity   String
+  plus       String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model PcCase {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  factor     String
+  weight     String
+  size_wdh   String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model CpuCooler {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  name       String
+  brand      String
+  intel      String
+  amd        String
+  flowtype   String
+  noise      String
+  itemValue  String
+  image      String?
+  pcpartId   Int
+  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists PartsList[]
+}
+
+model Display {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String
+  brand       String
+  size        String
+  monitortype String
+  area        String
+  contrast    String
+  itemValue   String
+  image       String?
+  pcpartId    Int
+  pcpart      PcPart      @relation(fields: [pcpartId], references: [id])
+  partsLists  PartsList[]
+}
