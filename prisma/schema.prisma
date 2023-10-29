@@ -17,7 +17,7 @@ model User {
   partsLists     PartsList[]
 }
 
-model PcPart {
+model Category {
   id           Int           @id @default(autoincrement())
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -74,8 +74,8 @@ model Cpu {
   socket     String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -90,8 +90,8 @@ model MotherBoard {
   socket     String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -107,8 +107,8 @@ model Memory {
   interface  String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -126,8 +126,8 @@ model Hdd {
   cache      String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -143,8 +143,8 @@ model Ssd {
   ssdtype    String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -161,8 +161,8 @@ model VideoCard {
   interface  String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -177,8 +177,8 @@ model Power {
   plus       String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -193,8 +193,8 @@ model PcCase {
   size_wdh   String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -210,8 +210,8 @@ model CpuCooler {
   noise      String
   itemValue  String
   image      String?
-  pcpartId   Int
-  pcpart     PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId Int
+  category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
 }
 
@@ -227,7 +227,7 @@ model Display {
   contrast    String
   itemValue   String
   image       String?
-  pcpartId    Int
-  pcpart      PcPart      @relation(fields: [pcpartId], references: [id])
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
   partsLists  PartsList[]
 }
