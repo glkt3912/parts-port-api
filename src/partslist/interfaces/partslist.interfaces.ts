@@ -1,0 +1,18 @@
+export interface PartsList {
+  id: number,
+  createdAt: Date,
+  updatedAt: Date,
+  name: string,
+  isOpened: boolean,
+  userId: number,
+  cpuId?: number | null,
+  motherboardId?: number | null,
+  memoryId?: number | null,
+  hddId?: number | null,
+  ssdId?: number | null,
+  videocardId?: number | null,
+  powerId?: number | null,
+  pccaseId?: number | null,
+  cpucoolerId?: number | null,
+  displayId?: number | null,
+}

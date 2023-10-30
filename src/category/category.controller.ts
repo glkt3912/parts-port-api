@@ -8,20 +8,37 @@ import { Category } from '@prisma/client';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Post('create')
-  createCategory(
-    @Body() dto: CreateCategoryDto
-  ): Promise<Category> {
-    return this.categoryService.createCategory(dto)
-  }
-
   @Get()
   findAll(): Promise<Category[]> {
-    return this.categoryService.findAllCategories();
+    return this.categoryService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<Category> {
+      return this.categoryService.findOne(+id);
   }
 
   @Get('search')
   search(@Query('keyword') keyword: string): Promise<Category[]> {
-      return this.categoryService.searchCategories(keyword);
+      return this.categoryService.search(keyword);
+  }
+
+  @Post('create')
+  create(
+    @Body() dto: CreateCategoryDto
+  ): Promise<Category> {
+    return this.categoryService.create(dto)
+  }
+
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateCategoryDto) {
+    return this.categoryService.update(+id, dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.categoryService.delete(+id);
   }
 }

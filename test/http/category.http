@@ -32,7 +32,7 @@ Accept: application/json
 csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
 
 {
-    "name": "CPU TEST"
+    "name": "Display TEST"
 }
 
 ### 
