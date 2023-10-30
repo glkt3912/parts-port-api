@@ -13,25 +13,25 @@ model User {
   updatedAt      DateTime    @updatedAt
   email          String      @unique
   hashedPassword String
-  name           String
+  name           String      @unique
   partsLists     PartsList[]
 }
 
 model Category {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  category     String
-  cpus         Cpu[]
-  motherboards MotherBoard[]
-  memories     Memory[]
-  hdds         Hdd[]
-  ssds         Ssd[]
-  videocards   VideoCard[]
-  powers       Power[]
-  pccases      PcCase[]
-  cpucoolers   CpuCooler[]
-  displays     Display[]
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  name        String        @unique
+  Cpu         Cpu[]
+  MotherBoard MotherBoard[]
+  Memory      Memory[]
+  Hdd         Hdd[]
+  Ssd         Ssd[]
+  VideoCard   VideoCard[]
+  Power       Power[]
+  PcCase      PcCase[]
+  CpuCooler   CpuCooler[]
+  Display     Display[]
 }
 
 model PartsList {
@@ -39,7 +39,7 @@ model PartsList {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   name          String
-  publicPrivate Boolean
+  isOpened      Boolean
   userId        Int
   cpuId         Int?
   motherboardId Int?
@@ -52,16 +52,16 @@ model PartsList {
   cpucoolerId   Int?
   displayId     Int?
   user          User         @relation(fields: [userId], references: [id])
-  cpu           Cpu?         @relation(fields: [cpuId], references: [id])
-  motherboard   MotherBoard? @relation(fields: [motherboardId], references: [id])
-  memory        Memory?      @relation(fields: [memoryId], references: [id])
-  hdd           Hdd?         @relation(fields: [hddId], references: [id])
-  ssd           Ssd?         @relation(fields: [ssdId], references: [id])
-  videocard     VideoCard?   @relation(fields: [videocardId], references: [id])
-  power         Power?       @relation(fields: [powerId], references: [id])
-  pccase        PcCase?      @relation(fields: [pccaseId], references: [id])
-  cpucooler     CpuCooler?   @relation(fields: [cpucoolerId], references: [id])
-  display       Display?     @relation(fields: [displayId], references: [id])
+  cpu           Cpu?         @relation(fields: [cpuId], references: [id], onDelete: SetNull)
+  motherboard   MotherBoard? @relation(fields: [motherboardId], references: [id], onDelete: SetNull)
+  memory        Memory?      @relation(fields: [memoryId], references: [id], onDelete: SetNull)
+  hdd           Hdd?         @relation(fields: [hddId], references: [id], onDelete: SetNull)
+  ssd           Ssd?         @relation(fields: [ssdId], references: [id], onDelete: SetNull)
+  videocard     VideoCard?   @relation(fields: [videocardId], references: [id], onDelete: SetNull)
+  power         Power?       @relation(fields: [powerId], references: [id], onDelete: SetNull)
+  pccase        PcCase?      @relation(fields: [pccaseId], references: [id], onDelete: SetNull)
+  cpucooler     CpuCooler?   @relation(fields: [cpucoolerId], references: [id], onDelete: SetNull)
+  display       Display?     @relation(fields: [displayId], references: [id], onDelete: SetNull)
 }
 
 model Cpu {

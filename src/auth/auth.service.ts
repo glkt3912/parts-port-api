@@ -4,7 +4,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
-import { AuthDto } from './dto/auth.dto';
+import { SignUpDto } from './dto/signup.dto';
+import { LoginDto } from './dto/login.dto';
 import { Msg, Jwt } from './interfaces/auth.interface';
 import { privateDecrypt } from 'crypto';
 
@@ -15,14 +16,14 @@ export class AuthService {
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
   ) {}
-  async signUp(dto: AuthDto): Promise<Msg> {
+  async signUp(dto: SignUpDto): Promise<Msg> {
     const hashed = await bcrypt.hash(dto.password, 12);
     try {
       await this.prisma.user.create({
         data: {
           email: dto.email,
           hashedPassword: hashed,
-          name: '',
+          name: dto.name,
         },
       });
       return {
@@ -38,12 +39,20 @@ export class AuthService {
       throw error;
     }
   }
-  async login(dto: AuthDto): Promise<Jwt> {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: dto.email,
-      },
-    });
+  async login(dto: LoginDto): Promise<Jwt> {
+    if (!dto.name && !dto.email) {
+      throw new ForbiddenException('Either name or email must be provided.');
+    }
+    let user;
+    if (dto.email) {
+      user = await this.prisma.user.findUnique({
+          where: { email: dto.email },
+      });
+    } else if (dto.name) {
+      user = await this.prisma.user.findUnique({
+          where: { name: dto.name },
+      });
+    }
     if (!user) throw new ForbiddenException('Email or password incorrect.');
     const isValid = await bcrypt.compare(dto.password, user.hashedPassword);
     if (!isValid) throw new ForbiddenException('Email or password incorrect.');

@@ -1,0 +1,42 @@
+###
+GET http://localhost:3010/auth/csrf HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3010/auth/signup HTTP/1.1
+content-type: application/json
+Accept: application/json
+csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
+
+{
+    "name": "tester",
+    "email": "user1@test.com",
+    "password": "user1"
+}
+
+###
+POST http://localhost:3010/auth/login HTTP/1.1
+content-type: application/json
+Accept: application/json
+csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
+
+{
+    "email": "user1@test.com",
+    "password": "user1"
+}
+
+###
+POST http://localhost:3010/category/create HTTP/1.1
+content-type: application/json
+Accept: application/json
+csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
+
+{
+    "name": "CPU TEST"
+}
+
+### 
+GET http://localhost:3010/category
+content-type: application/json
+Accept: application/json
+csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
