@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -10,59 +11,90 @@ export class CategoryService implements CrudService<Category> {
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<Category[]> {
-    return this.prisma.category.findMany();
+    try {
+      return await this.prisma.category.findMany();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to retrieve categories.');
+    }
   }
 
   async findOne(id: number): Promise<Category> {
-    return this.prisma.category.findUnique({ where: { id } });
+    try {
+      const category = await this.prisma.category.findUnique({ where: { id } });
+      if (!category) {
+        throw new NotFoundException(`Category with ID ${id} not found.`);
+      }
+      return category;
+    } catch (error) {
+      throw new InternalServerErrorException(`Failed to retrieve category with ID ${id}.`);
+    }
   }
 
   async search(keyword: string): Promise<Category[]> {
-    return this.prisma.category.findMany({
+    try {
+      return await this.prisma.category.findMany({
         where: {
-            name: {
-                contains: keyword,
-                mode: 'insensitive' // 大文字・小文字を区別しない
-            }
-        }
-    });
+          name: {
+            contains: keyword,
+            mode: 'insensitive',  // 大文字・小文字を区別しない
+          },
+        },
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Search operation failed.');
+    }
   }
 
   async create(dto: CreateCategoryDto): Promise<Category> {
-    const category = this.prisma.category.create({ data: dto });
-    return category;
+    try {
+      const category = await this.prisma.category.create({ data: dto });
+      return category;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ConflictException('A category with the given name already exists.');
+        }
+      }
+      throw error;
+    }
   }
 
   async update(categoryId: number, dto: UpdateCategoryDto): Promise<Category> {
-    return this.prisma.category.update({
-      where: {
-        id: categoryId,
-      },
-      data: {
-        ...dto,
-      },
-    });
+    try {
+      const category = await this.prisma.category.update({
+        where: {
+          id: categoryId,
+        },
+        data: {
+          ...dto,
+        },
+      });
+      return category;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new ConflictException('A category with the given details already exists.');
+        }
+        if (error.code === 'P2025') {
+          throw new NotFoundException(`A category with ID ${categoryId} does not exist.`);
+        }
+      }
+      throw error;
+    }
   }
 
   async delete(categoryId: number): Promise<void> {
-    this.prisma.category.delete({
-      where: { id: categoryId },
-    });
+    try {
+      await this.prisma.category.delete({
+        where: { id: categoryId },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException(`A category with ID ${categoryId} does not exist.`);
+        }
+      }
+      throw error;
+    }
   }
-
-  // async findOne(id: number): Promise<Category> {
-  //   return this.prisma.category.findUnique({ where: { id } });
-  // }
-
-  // async create(data: Prisma.CategoryCreateInput): Promise<Category> {
-  //   return this.prisma.category.create({ data });
-  // }
-
-  // async update(id: number, data: Prisma.CategoryUpdateInput): Promise<Category> {
-  //   return this.prisma.category.update({ where: { id }, data });
-  // }
-
-  // async remove(id: number): Promise<void> {
-  //   await this.prisma.category.delete({ where: { id } });
-  // }
 }
