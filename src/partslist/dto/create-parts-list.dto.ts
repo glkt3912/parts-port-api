@@ -33,7 +33,7 @@ export class CreatePartsListDto {
 
   @IsInt()
   @IsOptional()
-  videocardId?: number;
+  gpuId?: number;
 
   @IsInt()
   @IsOptional()

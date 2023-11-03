@@ -10,7 +10,7 @@ export interface PartsList {
   memoryId?: number | null,
   hddId?: number | null,
   ssdId?: number | null,
-  videocardId?: number | null,
+  gpuId?: number | null,
   powerId?: number | null,
   pccaseId?: number | null,
   cpucoolerId?: number | null,
