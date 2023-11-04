@@ -1,8 +1,11 @@
-export interface PartsList {
+import { CrudEntity } from "src/interfaces/crud.interfaces";
+
+export interface PartsList extends CrudEntity {
   id: number,
   createdAt: Date,
   updatedAt: Date,
   name: string,
+  description: string,
   isOpened: boolean,
   userId: number,
   cpuId?: number | null,

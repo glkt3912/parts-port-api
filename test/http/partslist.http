@@ -1,0 +1,60 @@
+@host = http://localhost:3010
+@contentType = application/json
+
+###
+# 全てのパーツリストを取得
+GET {{host}}/partslists
+
+###
+# 特定のIDを持つパーツリストを取得
+GET {{host}}/partslists/1
+
+###
+# キーワードに基づいてパーツリストを検索
+GET {{host}}/partslists/search?keyword=cpu
+
+###
+# 新しいパーツリストを作成
+POST {{host}}/partslists
+Content-Type: {{contentType}}
+{
+  "name": "New Parts List",
+  "description": "A new list of computer parts",
+  "isOpened": true,
+  "userId": 1,
+  "cpuId": 2,
+  "motherboardId": 3,
+  "memoryId": 4,
+  "hddId": 5,
+  "ssdId": 6,
+  "gpuId": 7,
+  "powerId": 8,
+  "pccaseId": 9,
+  "cpucoolerId": 10,
+  "displayId": 11
+}
+
+###
+# 特定のIDを持つパーツリストを更新
+PUT {{host}}/partslists/1
+Content-Type: {{contentType}}
+{
+  "name": "Updated Parts List",
+  "description": "An updated list of computer parts",
+  "isOpened": false,
+  "userId": 1,
+  "cpuId": 2,
+  "motherboardId": 3,
+  "memoryId": null,
+  "hddId": 5,
+  "ssdId": null,
+  "gpuId": 7,
+  "powerId": 8,
+  "pccaseId": 9,
+  "cpucoolerId": null,
+  "displayId": 11
+}
+
+###
+# 特定のIDを持つパーツリストを削除
+DELETE {{host}}/partslists/1
