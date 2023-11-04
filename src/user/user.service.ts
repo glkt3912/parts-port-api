@@ -9,7 +9,7 @@ export class UserService {
 
   async updateUser(
     userId: number,
-    dto: UpdateUserDto,  
+    dto: UpdateUserDto,
   ): Promise<Omit<User, 'hashedPassword'>> {
     const user = await this.prisma.user.update({
       where: {

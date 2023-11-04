@@ -1,4 +1,9 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -26,7 +31,9 @@ export class CategoryService implements CrudService<Category> {
       }
       return category;
     } catch (error) {
-      throw new InternalServerErrorException(`Failed to retrieve category with ID ${id}.`);
+      throw new InternalServerErrorException(
+        `Failed to retrieve category with ID ${id}.`,
+      );
     }
   }
 
@@ -36,7 +43,7 @@ export class CategoryService implements CrudService<Category> {
         where: {
           name: {
             contains: keyword,
-            mode: 'insensitive',  // 大文字・小文字を区別しない
+            mode: 'insensitive', // 大文字・小文字を区別しない
           },
         },
       });
@@ -52,7 +59,9 @@ export class CategoryService implements CrudService<Category> {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A category with the given name already exists.');
+          throw new ConflictException(
+            'A category with the given name already exists.',
+          );
         }
       }
       throw error;
@@ -73,10 +82,14 @@ export class CategoryService implements CrudService<Category> {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A category with the given details already exists.');
+          throw new ConflictException(
+            'A category with the given details already exists.',
+          );
         }
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A category with ID ${categoryId} does not exist.`);
+          throw new NotFoundException(
+            `A category with ID ${categoryId} does not exist.`,
+          );
         }
       }
       throw error;
@@ -91,7 +104,9 @@ export class CategoryService implements CrudService<Category> {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A category with ID ${categoryId} does not exist.`);
+          throw new NotFoundException(
+            `A category with ID ${categoryId} does not exist.`,
+          );
         }
       }
       throw error;

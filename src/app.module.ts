@@ -7,6 +7,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
 import { PartslistModule } from './partslist/partslist.module';
+import { CpuController } from './cpu/cpu.controller';
+import { CpuService } from './cpu/cpu.service';
+import { CpuModule } from './cpu/cpu.module';
 
 @Module({
   imports: [
@@ -15,9 +18,10 @@ import { PartslistModule } from './partslist/partslist.module';
     UserModule,
     CategoryModule,
     PrismaModule,
-    PartslistModule
+    PartslistModule,
+    CpuModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, CpuController],
+  providers: [AppService, CpuService],
 })
 export class AppModule {}

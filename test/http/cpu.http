@@ -1,0 +1,78 @@
+@host = http://localhost:3010
+@contentType = application/json
+
+###
+GET http://localhost:3010/auth/csrf HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3010/auth/login HTTP/1.1
+content-type: application/json
+Accept: application/json
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+{
+    "email": "user1@test.com",
+    "password": "user1"
+}
+
+###
+# 全てのCPUを取得
+GET {{host}}/cpu
+Accept: {{contentType}}
+
+###
+# IDによる単一のCPUを取得
+GET {{host}}/cpu/1
+Accept: {{contentType}}
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+###
+# キーワードによるCPUの検索
+GET {{host}}/cpu/search?keyword=Intel
+Accept: {{contentType}}
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+###
+# 新しいCPUを作成
+POST {{host}}/cpu
+Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+{
+  "name": "Intel Core i7",
+  "brand": "Intel",
+  "processor": "i7",
+  "socket": "LGA1151",
+  "partNumber": "BX80684I79700K",
+  "image": "http://example.com/image.jpg",
+  "url": "http://example.com/product",
+  "price": "350",
+  "categoryId": 1
+}
+
+###
+# 既存のCPUを更新
+PUT {{host}}/cpu/1
+Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+{
+  "name": "Intel Core i7-9700K",
+  "brand": "Intel",
+  "processor": "i7",
+  "socket": "LGA1151",
+  "partNumber": "BX80684I79700KF",
+  "image": "http://example.com/image.jpg",
+  "url": "http://example.com/product",
+  "price": "340",
+  "categoryId": 1
+}
+
+###
+# CPUを削除
+DELETE {{host}}/cpu/1
+Accept: {{contentType}}
+csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs

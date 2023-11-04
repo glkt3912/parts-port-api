@@ -10,8 +10,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:3000'],
-  })
+    origin: ['http://localhost:3010'],
+  });
   app.use(cookieParser()); // Cookie 解析用
   app.use(
     csurf({

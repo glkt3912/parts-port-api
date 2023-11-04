@@ -46,11 +46,11 @@ export class AuthService {
     let user;
     if (dto.email) {
       user = await this.prisma.user.findUnique({
-          where: { email: dto.email },
+        where: { email: dto.email },
       });
     } else if (dto.name) {
       user = await this.prisma.user.findUnique({
-          where: { name: dto.name },
+        where: { name: dto.name },
       });
     }
     if (!user) throw new ForbiddenException('Email or password incorrect.');

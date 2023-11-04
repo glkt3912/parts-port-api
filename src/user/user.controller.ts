@@ -11,7 +11,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getLoginUser(@Req() req: Request): Omit<User, 'hashedPassword' | 'createdAt' | 'updatedAt'> {
+  getLoginUser(
+    @Req() req: Request,
+  ): Omit<User, 'hashedPassword' | 'createdAt' | 'updatedAt'> {
     const { hashedPassword, createdAt, updatedAt, ...rest } = req.user as User;
     return rest;
   }
@@ -20,7 +22,7 @@ export class UserController {
   updateUser(
     @Req() req: Request,
     @Body() dto: UpdateUserDto,
-    ): Promise<Omit<User, 'hashedPassword'>> {
-      return this.userService.updateUser(req.user.id, dto);
-    }  
+  ): Promise<Omit<User, 'hashedPassword'>> {
+    return this.userService.updateUser(req.user.id, dto);
+  }
 }

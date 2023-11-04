@@ -1,4 +1,10 @@
-import { ConflictException, ForbiddenException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PartsListDto } from './dto/parts-list.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -19,13 +25,17 @@ export class PartslistService implements CrudService<PartsList> {
 
   async findOne(id: number): Promise<PartsList> {
     try {
-      const partsList = await this.prisma.partsList.findUnique({ where: { id } });
+      const partsList = await this.prisma.partsList.findUnique({
+        where: { id },
+      });
       if (!partsList) {
         throw new NotFoundException(`PartsList with ID ${id} not found.`);
       }
       return partsList;
     } catch (error) {
-      throw new InternalServerErrorException(`Failed to retrieve PartsList with ID ${id}.`);
+      throw new InternalServerErrorException(
+        `Failed to retrieve PartsList with ID ${id}.`,
+      );
     }
   }
 
@@ -35,7 +45,7 @@ export class PartslistService implements CrudService<PartsList> {
         where: {
           name: {
             contains: keyword,
-            mode: 'insensitive',  // 大文字・小文字を区別しない
+            mode: 'insensitive', // 大文字・小文字を区別しない
           },
         },
       });
@@ -47,12 +57,16 @@ export class PartslistService implements CrudService<PartsList> {
   async create(dto: PartsListDto): Promise<PartsList> {
     try {
       const createInput = this.createPartsListInput(dto);
-      const partslist = await this.prisma.partsList.create({ data: createInput});
+      const partslist = await this.prisma.partsList.create({
+        data: createInput,
+      });
       return partslist;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A Partslist with the given name already exists.');
+          throw new ConflictException(
+            'A Partslist with the given name already exists.',
+          );
         }
       }
       throw error;
@@ -73,10 +87,14 @@ export class PartslistService implements CrudService<PartsList> {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
-          throw new ConflictException('A partslist with the given details already exists.');
+          throw new ConflictException(
+            'A partslist with the given details already exists.',
+          );
         }
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A partslist with ID ${partslistId} does not exist.`);
+          throw new NotFoundException(
+            `A partslist with ID ${partslistId} does not exist.`,
+          );
         }
       }
       throw error;
@@ -91,7 +109,9 @@ export class PartslistService implements CrudService<PartsList> {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A partslist with ID ${partslistId} does not exist.`);
+          throw new NotFoundException(
+            `A partslist with ID ${partslistId} does not exist.`,
+          );
         }
       }
       throw error;
@@ -99,8 +119,8 @@ export class PartslistService implements CrudService<PartsList> {
   }
 
   /**
-   * 
-   * @param dto 
+   *
+   * @param dto
    * @returns
    * DTOからPrismaのCreateInputに変換
    */
@@ -109,66 +129,65 @@ export class PartslistService implements CrudService<PartsList> {
       throw new ForbiddenException('userId is required');
     }
     const createInput: Prisma.PartsListCreateInput = {
-        name: dto.name,
-        description: dto.description,
-        isOpened: dto.isOpened,
-        user: {
-          connect: { id: dto.userId },
-        },
+      name: dto.name,
+      description: dto.description,
+      isOpened: dto.isOpened,
+      user: {
+        connect: { id: dto.userId },
+      },
+    };
+    // 各パーツIDが存在する場合は、それぞれのパーツとのリレーションを設定
+    if (dto.cpuId) {
+      createInput.cpu = {
+        connect: { id: dto.cpuId },
       };
-      // 各パーツIDが存在する場合は、それぞれのパーツとのリレーションを設定
-      if (dto.cpuId) {
-        createInput.cpu = {
-          connect: { id: dto.cpuId },
-        };
-      }
-      if (dto.motherboardId) {
-        createInput.motherboard = {
-          connect: { id: dto.motherboardId },
-        };
-      }
-      if (dto.memoryId) {
-        createInput.memory = {
-          connect: { id: dto.memoryId },
-        };
-      }
-      if (dto.hddId) {
-        createInput.hdd = {
-          connect: { id: dto.hddId },
-        };
-      }
-      if (dto.ssdId) {
-        createInput.ssd = {
-          connect: { id: dto.ssdId },
-        };
-      }
-      if (dto.gpuId) {
-        createInput.gpu = {
-          connect: { id: dto.gpuId },
-        };
-      }
-      if (dto.powerId) {
-        createInput.power = {
-          connect: { id: dto.powerId},
-        };
-      }
-      if (dto.pccaseId) {
-        createInput.pccase = {
-          connect: { id: dto.pccaseId },
-        };
-      }
-      if (dto.cpucoolerId) {
-        createInput.cpucooler = {
-          connect: { id: dto.cpucoolerId },
-        };
-      }
-      if (dto.displayId) {
-        createInput.display = {
-          connect: { id: dto.displayId },
-        };
-      }
+    }
+    if (dto.motherboardId) {
+      createInput.motherboard = {
+        connect: { id: dto.motherboardId },
+      };
+    }
+    if (dto.memoryId) {
+      createInput.memory = {
+        connect: { id: dto.memoryId },
+      };
+    }
+    if (dto.hddId) {
+      createInput.hdd = {
+        connect: { id: dto.hddId },
+      };
+    }
+    if (dto.ssdId) {
+      createInput.ssd = {
+        connect: { id: dto.ssdId },
+      };
+    }
+    if (dto.gpuId) {
+      createInput.gpu = {
+        connect: { id: dto.gpuId },
+      };
+    }
+    if (dto.powerId) {
+      createInput.power = {
+        connect: { id: dto.powerId },
+      };
+    }
+    if (dto.pccaseId) {
+      createInput.pccase = {
+        connect: { id: dto.pccaseId },
+      };
+    }
+    if (dto.cpucoolerId) {
+      createInput.cpucooler = {
+        connect: { id: dto.cpucoolerId },
+      };
+    }
+    if (dto.displayId) {
+      createInput.display = {
+        connect: { id: dto.displayId },
+      };
+    }
 
-      return createInput;
+    return createInput;
   }
-
 }
