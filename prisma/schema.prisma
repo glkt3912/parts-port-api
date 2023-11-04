@@ -39,6 +39,7 @@ model PartsList {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   name          String
+  description   String
   isOpened      Boolean
   userId        Int
   cpuId         Int?
@@ -72,7 +73,7 @@ model Cpu {
   brand      String
   processor  String
   socket     String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -90,7 +91,7 @@ model MotherBoard {
   chipset    String
   formfactor String
   socket     String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -109,7 +110,7 @@ model Memory {
   setnumber  String
   standard   String
   interface  String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   categoryId Int
@@ -126,10 +127,9 @@ model Hdd {
   series     String
   capacity   String
   speed      String
-  interface1 String
-  interface2 String
+  interface  String
   cache      String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -148,7 +148,7 @@ model Ssd {
   size       String
   interface  String
   ssdtype    String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -168,7 +168,7 @@ model Gpu {
   memory     String
   clock      String
   interface  String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -186,7 +186,7 @@ model Power {
   standard   String
   capacity   String
   plus       String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -204,7 +204,7 @@ model PcCase {
   factor     String
   weight     String
   size_wdh   String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -223,7 +223,7 @@ model CpuCooler {
   amd        String
   flowtype   String
   noise      String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -244,7 +244,7 @@ model Display {
   area       String
   resolution String
   contrast   String
-  itemValue  String
+  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
