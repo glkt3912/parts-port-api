@@ -17,6 +17,7 @@ import { HddModule } from './hdd/hdd.module';
 import { SsdService } from './ssd/ssd.service';
 import { SsdController } from './ssd/ssd.controller';
 import { SsdModule } from './ssd/ssd.module';
+import { GpuModule } from './gpu/gpu.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SsdModule } from './ssd/ssd.module';
     MemoryModule,
     HddModule,
     SsdModule,
+    GpuModule,
   ],
   controllers: [AppController, CpuController, HddController, SsdController],
   providers: [AppService, CpuService, SsdService],
