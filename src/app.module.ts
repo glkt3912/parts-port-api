@@ -12,6 +12,8 @@ import { CpuService } from './cpu/cpu.service';
 import { CpuModule } from './cpu/cpu.module';
 import { MotherboardModule } from './motherboard/motherboard.module';
 import { MemoryModule } from './memory/memory.module';
+import { HddController } from './hdd/hdd.controller';
+import { HddModule } from './hdd/hdd.module';
 
 @Module({
   imports: [
@@ -24,8 +26,9 @@ import { MemoryModule } from './memory/memory.module';
     CpuModule,
     MotherboardModule,
     MemoryModule,
+    HddModule,
   ],
-  controllers: [AppController, CpuController],
+  controllers: [AppController, CpuController, HddController],
   providers: [AppService, CpuService],
 })
 export class AppModule {}

@@ -3,12 +3,12 @@ import {
   IsString,
   IsOptional,
   IsUrl,
+  IsInt,
   IsPositive,
   ValidateIf,
-  IsInt,
 } from 'class-validator';
 
-export class CreateMemoryDto {
+export class CreateHddDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -19,19 +19,23 @@ export class CreateMemoryDto {
 
   @IsNotEmpty()
   @IsString()
+  series: string;
+
+  @IsNotEmpty()
+  @IsString()
   capacity: string;
 
   @IsNotEmpty()
   @IsString()
-  setnumber: string;
-
-  @IsNotEmpty()
-  @IsString()
-  standard: string;
+  speed: string;
 
   @IsNotEmpty()
   @IsString()
   interface: string;
+
+  @IsNotEmpty()
+  @IsString()
+  cache: string;
 
   @IsNotEmpty()
   @IsString()
@@ -45,40 +49,48 @@ export class CreateMemoryDto {
   @IsUrl()
   url?: string;
 
+  @IsOptional()
+  @IsString()
+  price?: string;
+
   @IsNotEmpty()
   @IsInt()
   @IsPositive()
   categoryId: number;
 }
 
-export class UpdateMemoryDto {
-  @IsOptional()
+export class UpdateHddDto {
+  @IsNotEmpty()
   @IsString()
-  name?: string;
+  name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  brand?: string;
+  brand: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  capacity?: string;
+  series: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  setnumber?: string;
+  capacity: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  standard?: string;
+  speed: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  interface?: string;
+  interface: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  partNumber?: string;
+  cache: string;
+
+  @IsNotEmpty()
+  @IsString()
+  partNumber: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()
@@ -92,7 +104,7 @@ export class UpdateMemoryDto {
   @IsString()
   price?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @IsPositive()
   categoryId: number;
