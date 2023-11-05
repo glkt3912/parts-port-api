@@ -3,39 +3,48 @@ import {
   IsString,
   IsOptional,
   IsUrl,
+  IsNumberString,
+  IsInt,
   IsPositive,
   ValidateIf,
-  IsInt,
 } from 'class-validator';
 
-export class CreateMemoryDto {
+export class CreateDisplayDto {
   @IsNotEmpty()
   @IsString()
-  name: string;
+  readonly name: string;
 
   @IsNotEmpty()
   @IsString()
-  brand: string;
+  readonly brand: string;
 
   @IsNotEmpty()
   @IsString()
-  capacity: string;
+  readonly size: string;
 
   @IsNotEmpty()
   @IsString()
-  setnumber: string;
+  readonly type: string;
 
   @IsNotEmpty()
   @IsString()
-  standard: string;
+  readonly speed: string;
 
   @IsNotEmpty()
   @IsString()
-  interface: string;
+  readonly area: string;
 
   @IsNotEmpty()
   @IsString()
-  partNumber: string;
+  readonly resolution: string;
+
+  @IsNotEmpty()
+  @IsString()
+  readonly contrast: string;
+
+  @IsNotEmpty()
+  @IsString()
+  readonly partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -45,13 +54,17 @@ export class CreateMemoryDto {
   @IsUrl()
   url?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsNumberString()
+  price?: string;
+
+  @IsOptional()
   @IsInt()
   @IsPositive()
   categoryId: number;
 }
 
-export class UpdateMemoryDto {
+export class UpdateDisplayDto {
   @IsOptional()
   @IsString()
   name?: string;
@@ -62,19 +75,27 @@ export class UpdateMemoryDto {
 
   @IsOptional()
   @IsString()
-  capacity?: string;
+  size?: string;
 
   @IsOptional()
   @IsString()
-  setnumber?: string;
+  type?: string;
 
   @IsOptional()
   @IsString()
-  standard?: string;
+  speed?: string;
 
   @IsOptional()
   @IsString()
-  interface?: string;
+  area?: string;
+
+  @IsOptional()
+  @IsString()
+  resolution?: string;
+
+  @IsOptional()
+  @IsString()
+  contrast?: string;
 
   @IsOptional()
   @IsString()

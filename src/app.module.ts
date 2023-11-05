@@ -22,6 +22,7 @@ import { HddService } from './hdd/hdd.service';
 import { PowerModule } from './power/power.module';
 import { PccaseModule } from './pccase/pccase.module';
 import { CoolerModule } from './cooler/cooler.module';
+import { DisplayModule } from './display/display.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { CoolerModule } from './cooler/cooler.module';
     PowerModule,
     PccaseModule,
     CoolerModule,
+    DisplayModule,
   ],
   controllers: [AppController, CpuController, HddController, SsdController],
   providers: [AppService, CpuService, HddService, SsdService],
