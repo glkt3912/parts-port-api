@@ -16,6 +16,6 @@ export interface PartsList extends CrudEntity {
   gpuId?: number | null;
   powerId?: number | null;
   pccaseId?: number | null;
-  cpucoolerId?: number | null;
+  coolerId?: number | null;
   displayId?: number | null;
 }

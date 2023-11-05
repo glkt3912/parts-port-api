@@ -56,7 +56,7 @@ export class PartsListDto {
 
   @IsInt()
   @IsOptional()
-  cpucoolerId?: number;
+  coolerId?: number;
 
   @IsInt()
   @IsOptional()

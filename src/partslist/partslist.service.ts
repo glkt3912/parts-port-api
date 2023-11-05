@@ -177,9 +177,9 @@ export class PartslistService implements CrudService<PartsList> {
         connect: { id: dto.pccaseId },
       };
     }
-    if (dto.cpucoolerId) {
-      createInput.cpucooler = {
-        connect: { id: dto.cpucoolerId },
+    if (dto.coolerId) {
+      createInput.cooler = {
+        connect: { id: dto.coolerId },
       };
     }
     if (dto.displayId) {

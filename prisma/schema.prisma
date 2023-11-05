@@ -30,7 +30,7 @@ model Category {
   Gpu         Gpu[]
   Power       Power[]
   PcCase      PcCase[]
-  CpuCooler   CpuCooler[]
+  Cooler      Cooler[]
   Display     Display[]
 }
 
@@ -50,7 +50,7 @@ model PartsList {
   gpuId         Int?
   powerId       Int?
   pccaseId      Int?
-  cpucoolerId   Int?
+  coolerId      Int?
   displayId     Int?
   user          User         @relation(fields: [userId], references: [id])
   cpu           Cpu?         @relation(fields: [cpuId], references: [id], onDelete: SetNull)
@@ -61,7 +61,7 @@ model PartsList {
   gpu           Gpu?         @relation(fields: [gpuId], references: [id], onDelete: SetNull)
   power         Power?       @relation(fields: [powerId], references: [id], onDelete: SetNull)
   pccase        PcCase?      @relation(fields: [pccaseId], references: [id], onDelete: SetNull)
-  cpucooler     CpuCooler?   @relation(fields: [cpucoolerId], references: [id], onDelete: SetNull)
+  cooler        Cooler?      @relation(fields: [coolerId], references: [id], onDelete: SetNull)
   display       Display?     @relation(fields: [displayId], references: [id], onDelete: SetNull)
 }
 
@@ -214,7 +214,7 @@ model PcCase {
   partsLists PartsList[]
 }
 
-model CpuCooler {
+model Cooler {
   id         Int         @id @default(autoincrement())
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
