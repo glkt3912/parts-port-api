@@ -18,6 +18,8 @@ import { SsdService } from './ssd/ssd.service';
 import { SsdController } from './ssd/ssd.controller';
 import { SsdModule } from './ssd/ssd.module';
 import { GpuModule } from './gpu/gpu.module';
+import { HddService } from './hdd/hdd.service';
+import { PowerModule } from './power/power.module';
 
 @Module({
   imports: [
@@ -33,8 +35,9 @@ import { GpuModule } from './gpu/gpu.module';
     HddModule,
     SsdModule,
     GpuModule,
+    PowerModule,
   ],
   controllers: [AppController, CpuController, HddController, SsdController],
-  providers: [AppService, CpuService, SsdService],
+  providers: [AppService, CpuService, HddService, SsdService],
 })
 export class AppModule {}

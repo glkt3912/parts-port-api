@@ -179,21 +179,21 @@ model Gpu {
 }
 
 model Power {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  brand      String
-  standard   String
-  capacity   String
-  plus       String
-  partNumber String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  name          String
+  brand         String
+  standard      String
+  capacity      String
+  certification String
+  partNumber    String
+  image         String?
+  url           String?     @db.VarChar(2048)
+  price         String?
+  categoryId    Int
+  category      Category    @relation(fields: [categoryId], references: [id])
+  partsLists    PartsList[]
 }
 
 model PcCase {
