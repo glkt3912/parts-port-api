@@ -1,14 +1,14 @@
 import {
-  IsInt,
   IsNotEmpty,
-  IsOptional,
-  IsPositive,
   IsString,
+  IsOptional,
   IsUrl,
+  IsPositive,
   ValidateIf,
+  IsInt,
 } from 'class-validator';
 
-export class CreateCpuDto {
+export class CreateMemoryDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -19,11 +19,19 @@ export class CreateCpuDto {
 
   @IsNotEmpty()
   @IsString()
-  processor: string;
+  capacity: string;
 
   @IsNotEmpty()
   @IsString()
-  socket: string;
+  setnumber: string;
+
+  @IsNotEmpty()
+  @IsString()
+  standard: string;
+
+  @IsNotEmpty()
+  @IsString()
+  interface: string;
 
   @IsNotEmpty()
   @IsString()
@@ -37,16 +45,13 @@ export class CreateCpuDto {
   @IsUrl()
   url?: string;
 
-  @IsOptional()
-  @IsString()
-  price?: string;
-
   @IsNotEmpty()
   @IsInt()
+  @IsPositive()
   categoryId: number;
 }
 
-export class UpdateCpuDto {
+export class UpdateMemoryDto {
   @IsOptional()
   @IsString()
   name?: string;
@@ -57,11 +62,19 @@ export class UpdateCpuDto {
 
   @IsOptional()
   @IsString()
-  processor?: string;
+  capacity?: string;
 
   @IsOptional()
   @IsString()
-  socket?: string;
+  setnumber?: string;
+
+  @IsOptional()
+  @IsString()
+  standard?: string;
+
+  @IsOptional()
+  @IsString()
+  interface?: string;
 
   @IsOptional()
   @IsString()

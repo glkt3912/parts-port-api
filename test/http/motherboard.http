@@ -1,0 +1,63 @@
+@host = http://localhost:3010
+@contentType = application/json
+
+@csrfToken = Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
+###
+# マザーボードの一覧を取得
+GET {{host}}/motherboard
+Accept: {{contentType}}
+
+###
+# IDによる特定のマザーボードを取得
+GET {{host}}/motherboard/1
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
+
+###
+# キーワードによるマザーボードの検索
+GET {{host}}/motherboard/search?keyword=ATX
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
+
+###
+# 新しいマザーボードを作成
+POST {{host}}/motherboard
+Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
+
+{
+  "name": "Gaming Motherboard",
+  "brand": "BrandName",
+  "chipset": "X570",
+  "formfactor": "ATX",
+  "socket": "AM4",
+  "partNumber": "MBG12345",
+  "price": "199.99",
+  "categoryId": 1
+}
+
+###
+# 既存のマザーボードを更新
+PUT {{host}}/motherboard/1
+Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
+
+{
+  "name": "Updated Motherboard Name",
+  "brand": "Updated BrandName",
+  "chipset": "Updated X570",
+  "formfactor": "ATX",
+  "socket": "AM4",
+  "partNumber": "MBG12345",
+  "price": "219.99",
+  "categoryId": 1
+}
+
+###
+# マザーボードを削除
+DELETE {{host}}/motherboard/1
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}

@@ -113,6 +113,7 @@ model Memory {
   partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
+  price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]

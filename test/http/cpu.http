@@ -19,12 +19,12 @@ csrf-token: {{csrfToken}}
 }
 
 ###
-# 全てのCPUを取得
+# CPUの一覧を取得
 GET {{host}}/cpu
 Accept: {{contentType}}
 
 ###
-# IDによる単一のCPUを取得
+# IDによる特定のCPUを取得
 GET {{host}}/cpu/1
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}

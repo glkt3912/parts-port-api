@@ -10,6 +10,8 @@ import { PartslistModule } from './partslist/partslist.module';
 import { CpuController } from './cpu/cpu.controller';
 import { CpuService } from './cpu/cpu.service';
 import { CpuModule } from './cpu/cpu.module';
+import { MotherboardModule } from './motherboard/motherboard.module';
+import { MemoryModule } from './memory/memory.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { CpuModule } from './cpu/cpu.module';
     PrismaModule,
     PartslistModule,
     CpuModule,
+    MotherboardModule,
+    MemoryModule,
   ],
   controllers: [AppController, CpuController],
   providers: [AppService, CpuService],
