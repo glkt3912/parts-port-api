@@ -5,41 +5,41 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Hdd } from './interfaces/hdd.interfaces';
 import { CrudService } from 'src/interfaces/crud.interfaces';
-import { CreateHddDto, UpdateHddDto } from './dto/hdd.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Ssd } from './interfaces/ssd.interfaces';
+import { CreateSsdDto, UpdateSsdDto } from './dto/ssd.dto';
 
 @Injectable()
-export class HddService implements CrudService<Hdd> {
+export class SsdService implements CrudService<Ssd> {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<Hdd[]> {
+  async findAll(): Promise<Ssd[]> {
     try {
-      return await this.prisma.hdd.findMany();
+      return await this.prisma.ssd.findMany();
     } catch (error) {
       throw new InternalServerErrorException('Failed to retrieve categories.');
     }
   }
 
-  async findOne(id: number): Promise<Hdd> {
+  async findOne(id: number): Promise<Ssd> {
     try {
-      const hdd = await this.prisma.hdd.findUnique({
+      const ssd = await this.prisma.ssd.findUnique({
         where: { id },
       });
-      if (!hdd) {
-        throw new NotFoundException(`Hdd with ID ${id} not found.`);
+      if (!ssd) {
+        throw new NotFoundException(`ssd with ID ${id} not found.`);
       }
-      return hdd;
+      return ssd;
     } catch (error) {
       throw new InternalServerErrorException(
-        `Failed to retrieve Hdd with ID ${id}.`,
+        `Failed to retrieve ssd with ID ${id}.`,
       );
     }
   }
-  async search(keyword: string): Promise<Hdd[]> {
+  async search(keyword: string): Promise<Ssd[]> {
     try {
-      return await this.prisma.hdd.findMany({
+      return await this.prisma.ssd.findMany({
         where: {
           name: {
             contains: keyword,
@@ -52,15 +52,15 @@ export class HddService implements CrudService<Hdd> {
     }
   }
 
-  async create(dto: CreateHddDto): Promise<Hdd> {
+  async create(dto: CreateSsdDto): Promise<Ssd> {
     try {
-      const hdd = await this.prisma.hdd.create({ data: dto });
-      return hdd;
+      const ssd = await this.prisma.ssd.create({ data: dto });
+      return ssd;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           throw new ConflictException(
-            'A Hdd with the given name already exists.',
+            'A ssd with the given name already exists.',
           );
         }
       }
@@ -68,41 +68,41 @@ export class HddService implements CrudService<Hdd> {
     }
   }
 
-  async update(hddId: number, dto: UpdateHddDto): Promise<Hdd> {
+  async update(ssdId: number, dto: UpdateSsdDto): Promise<Ssd> {
     try {
-      const Hdd = await this.prisma.hdd.update({
+      const ssd = await this.prisma.ssd.update({
         where: {
-          id: hddId,
+          id: ssdId,
         },
         data: {
           ...dto,
         },
       });
-      return Hdd;
+      return ssd;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           throw new ConflictException(
-            'A Hdd with the given details already exists.',
+            'A ssd with the given details already exists.',
           );
         }
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A Hdd with ID ${hddId} does not exist.`);
+          throw new NotFoundException(`A ssd with ID ${ssdId} does not exist.`);
         }
       }
       throw error;
     }
   }
 
-  async delete(hddId: number): Promise<void> {
+  async delete(ssdId: number): Promise<void> {
     try {
-      await this.prisma.hdd.delete({
-        where: { id: hddId },
+      await this.prisma.ssd.delete({
+        where: { id: ssdId },
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`A Hdd with ID ${hddId} does not exist.`);
+          throw new NotFoundException(`A ssd with ID ${ssdId} does not exist.`);
         }
       }
       throw error;

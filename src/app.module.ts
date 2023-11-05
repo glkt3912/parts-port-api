@@ -14,6 +14,9 @@ import { MotherboardModule } from './motherboard/motherboard.module';
 import { MemoryModule } from './memory/memory.module';
 import { HddController } from './hdd/hdd.controller';
 import { HddModule } from './hdd/hdd.module';
+import { SsdService } from './ssd/ssd.service';
+import { SsdController } from './ssd/ssd.controller';
+import { SsdModule } from './ssd/ssd.module';
 
 @Module({
   imports: [
@@ -27,8 +30,9 @@ import { HddModule } from './hdd/hdd.module';
     MotherboardModule,
     MemoryModule,
     HddModule,
+    SsdModule,
   ],
-  controllers: [AppController, CpuController, HddController],
-  providers: [AppService, CpuService],
+  controllers: [AppController, CpuController, HddController, SsdController],
+  providers: [AppService, CpuService, SsdService],
 })
 export class AppModule {}
