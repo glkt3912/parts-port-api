@@ -3,13 +3,13 @@ import {
   IsString,
   IsOptional,
   IsUrl,
+  IsNumberString,
   IsInt,
   IsPositive,
   ValidateIf,
-  IsNumberString,
 } from 'class-validator';
 
-export class CreatePowerDto {
+export class CreatePcCaseDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -20,15 +20,15 @@ export class CreatePowerDto {
 
   @IsNotEmpty()
   @IsString()
-  standard: string;
+  factor: string;
 
   @IsNotEmpty()
   @IsString()
-  capacity: string;
+  weight: string;
 
   @IsNotEmpty()
   @IsString()
-  certification: string;
+  size: string;
 
   @IsNotEmpty()
   @IsString()
@@ -52,7 +52,7 @@ export class CreatePowerDto {
   categoryId: number;
 }
 
-export class UpdatePowerDto {
+export class UpdatePcCaseDto {
   @IsOptional()
   @IsString()
   name?: string;
@@ -63,15 +63,15 @@ export class UpdatePowerDto {
 
   @IsOptional()
   @IsString()
-  standard?: string;
+  factor?: string;
 
   @IsOptional()
   @IsString()
-  capacity?: string;
+  weight?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  certification?: string;
+  size?: string;
 
   @IsOptional()
   @IsString()
@@ -92,5 +92,5 @@ export class UpdatePowerDto {
   @IsOptional()
   @IsInt()
   @IsPositive()
-  categoryId: number;
+  categoryId?: number;
 }

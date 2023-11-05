@@ -204,7 +204,7 @@ model PcCase {
   brand      String
   factor     String
   weight     String
-  size_wdh   String
+  size       String
   partNumber String
   image      String?
   url        String?     @db.VarChar(2048)

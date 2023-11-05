@@ -68,7 +68,7 @@ export class UpdateGpuDto {
   @IsString()
   brand?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   chip?: string;
 
@@ -76,19 +76,19 @@ export class UpdateGpuDto {
   @IsString()
   core?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   memory?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   clock?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   interface?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   partNumber?: string;
 

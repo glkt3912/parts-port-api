@@ -60,37 +60,37 @@ export class CreateHddDto {
 }
 
 export class UpdateHddDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  brand: string;
+  brand?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  series: string;
+  series?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  capacity: string;
+  capacity?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  speed: string;
+  speed?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  interface: string;
+  interface?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  cache: string;
+  cache?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  partNumber: string;
+  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()
@@ -104,8 +104,8 @@ export class UpdateHddDto {
   @IsString()
   price?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
   @IsPositive()
-  categoryId: number;
+  categoryId?: number;
 }

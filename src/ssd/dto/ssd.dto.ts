@@ -56,31 +56,31 @@ export class CreateSsdDto {
 }
 
 export class UpdateSsdDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   brand?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   capacity?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   size?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   interface?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   ssdtype?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   partNumber?: string;
 
@@ -96,7 +96,7 @@ export class UpdateSsdDto {
   @IsString()
   price?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
   @IsPositive()
   categoryId?: number;

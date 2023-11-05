@@ -20,6 +20,7 @@ import { SsdModule } from './ssd/ssd.module';
 import { GpuModule } from './gpu/gpu.module';
 import { HddService } from './hdd/hdd.service';
 import { PowerModule } from './power/power.module';
+import { PccaseModule } from './pccase/pccase.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PowerModule } from './power/power.module';
     SsdModule,
     GpuModule,
     PowerModule,
+    PccaseModule,
   ],
   controllers: [AppController, CpuController, HddController, SsdController],
   providers: [AppService, CpuService, HddService, SsdService],
