@@ -1,22 +1,35 @@
 @host = http://localhost:3010
 @contentType = application/json
+@csrfToken = Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+
 
 ###
 # 全てのパーツリストを取得
 GET {{host}}/partslists
+content-type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 
 ###
 # 特定のIDを持つパーツリストを取得
 GET {{host}}/partslists/1
+content-type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 
 ###
 # キーワードに基づいてパーツリストを検索
 GET {{host}}/partslists/search?keyword=cpu
+content-type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 
 ###
 # 新しいパーツリストを作成
 POST {{host}}/partslists
 Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 {
   "name": "New Parts List",
   "description": "A new list of computer parts",
@@ -38,6 +51,8 @@ Content-Type: {{contentType}}
 # 特定のIDを持つパーツリストを更新
 PUT {{host}}/partslists/1
 Content-Type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 {
   "name": "Updated Parts List",
   "description": "An updated list of computer parts",
@@ -58,3 +73,5 @@ Content-Type: {{contentType}}
 ###
 # 特定のIDを持つパーツリストを削除
 DELETE {{host}}/partslists/1
+content-type: {{contentType}}
+csrf-token: {{csrfToken}}

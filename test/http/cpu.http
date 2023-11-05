@@ -1,15 +1,17 @@
 @host = http://localhost:3010
 @contentType = application/json
 
-###
-GET http://localhost:3010/auth/csrf HTTP/1.1
-content-type: application/json
+@csrfToken = Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
 
 ###
-POST http://localhost:3010/auth/login HTTP/1.1
-content-type: application/json
-Accept: application/json
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+GET {{host}}/auth/csrf HTTP/1.1
+content-type: {{contentType}}
+
+###
+POST {{host}}/auth/login HTTP/1.1
+content-type: {{contentType}}
+Accept: {{contentType}}
+csrf-token: {{csrfToken}}
 
 {
     "email": "user1@test.com",
@@ -25,20 +27,20 @@ Accept: {{contentType}}
 # IDによる単一のCPUを取得
 GET {{host}}/cpu/1
 Accept: {{contentType}}
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+csrf-token: {{csrfToken}}
 
 ###
 # キーワードによるCPUの検索
 GET {{host}}/cpu/search?keyword=Intel
 Accept: {{contentType}}
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+csrf-token: {{csrfToken}}
 
 ###
 # 新しいCPUを作成
 POST {{host}}/cpu
 Content-Type: {{contentType}}
 Accept: {{contentType}}
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+csrf-token: {{csrfToken}}
 
 {
   "name": "Intel Core i7",
@@ -57,7 +59,7 @@ csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
 PUT {{host}}/cpu/1
 Content-Type: {{contentType}}
 Accept: {{contentType}}
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+csrf-token: {{csrfToken}}
 
 {
   "name": "Intel Core i7-9700K",
@@ -75,4 +77,4 @@ csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
 # CPUを削除
 DELETE {{host}}/cpu/1
 Accept: {{contentType}}
-csrf-token: Cwlrlznm-NRDkURgm4_tvSCtamLmaeXP_IWs
+csrf-token: {{csrfToken}}

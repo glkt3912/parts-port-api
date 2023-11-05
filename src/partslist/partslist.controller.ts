@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { PartsListDto } from './dto/parts-list.dto';
 import { PartslistService } from './partslist.service';
@@ -17,13 +18,16 @@ export class PartslistController {
 
   // 全てのパーツリストを取得
   @Get()
-  async findAll() {
-    return await this.partslistService.findAll();
+  findAll(@Query('keyword') keyword?: string) {
+    if (keyword) {
+      return this.partslistService.search(keyword);
+    }
+    return this.partslistService.findAll();
   }
 
   // 特定のIDを持つパーツリストを取得
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return await this.partslistService.findOne(id);
   }
 
@@ -41,13 +45,16 @@ export class PartslistController {
 
   // 特定のIDを持つパーツリストを更新
   @Put(':id')
-  async update(@Param('id') id: number, @Body() dto: PartsListDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: PartsListDto,
+  ) {
     return await this.partslistService.update(id, dto);
   }
 
   // 特定のIDを持つパーツリストを削除
   @Delete(':id')
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     await this.partslistService.delete(id);
   }
 }
