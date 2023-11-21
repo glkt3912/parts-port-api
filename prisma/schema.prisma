@@ -66,38 +66,41 @@ model PartsList {
 }
 
 model Cpu {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  brand      String
-  processor  String
-  socket     String
-  partNumber String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  id               Int         @id @default(autoincrement())
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  name             String
+  brand            String
+  processor        String
+  socket           String
+  powerConsumption Int
+  image            String?
+  url              String?     @db.VarChar(2048)
+  price            String?
+  categoryId       Int
+  category         Category    @relation(fields: [categoryId], references: [id])
+  partsLists       PartsList[]
 }
 
 model MotherBoard {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  brand      String
-  chipset    String
-  formfactor String
-  socket     String
-  partNumber String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String
+  brand       String
+  chipset     String
+  formFactor  String
+  memoryType  String
+  memorySlots String
+  maxMemory   String
+  pciSlots    String
+  socket      String
+  image       String?
+  url         String?     @db.VarChar(2048)
+  price       String?
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  partsLists  PartsList[]
 }
 
 model Memory {
@@ -106,11 +109,11 @@ model Memory {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
+  type       String
   capacity   String
   setnumber  String
   standard   String
   interface  String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -130,7 +133,6 @@ model Hdd {
   speed      String
   interface  String
   cache      String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -149,7 +151,6 @@ model Ssd {
   size       String
   interface  String
   ssdtype    String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -164,12 +165,12 @@ model Gpu {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
+  size       String
   chip       String
   core       String
   memory     String
   clock      String
   interface  String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -185,9 +186,9 @@ model Power {
   name          String
   brand         String
   standard      String
+  powerOutput   String
   capacity      String
   certification String
-  partNumber    String
   image         String?
   url           String?     @db.VarChar(2048)
   price         String?
@@ -202,10 +203,9 @@ model PcCase {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
-  factor     String
+  formFactor String
   weight     String
   size       String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -224,7 +224,6 @@ model Cooler {
   amd        String
   flowtype   String
   noise      String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -245,7 +244,6 @@ model Display {
   area       String
   resolution String
   contrast   String
-  partNumber String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
