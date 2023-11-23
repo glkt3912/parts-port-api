@@ -73,34 +73,41 @@ model Cpu {
   brand            String
   processor        String
   socket           String
-  powerConsumption Int
+  wattage          Int // CPUの消費電力（ワット単位）
+  core             Int // CPUのコア数
+  baseFrequency    String // CPUの基本動作周波数
+  boostedFrequency String // CPUのブースト時の最大周波数
+  overclockable    Boolean     @default(false) // CPUがオーバークロック可能かどうか
   image            String?
   url              String?     @db.VarChar(2048)
   price            String?
+  lighting         String?
   categoryId       Int
   category         Category    @relation(fields: [categoryId], references: [id])
   partsLists       PartsList[]
 }
 
 model MotherBoard {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  name        String
-  brand       String
-  chipset     String
-  formFactor  String
-  memoryType  String
-  memorySlots String
-  maxMemory   String
-  pciSlots    String
-  socket      String
-  image       String?
-  url         String?     @db.VarChar(2048)
-  price       String?
-  categoryId  Int
-  category    Category    @relation(fields: [categoryId], references: [id])
-  partsLists  PartsList[]
+  id                 Int         @id @default(autoincrement())
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  name               String
+  brand              String
+  chipset            String
+  formFactor         String // マザーボードのフォームファクタ（例：ATX、Micro-ATXなど）
+  memoryType         String // マザーボードがサポートするメモリタイプ（例：DDR4、DDR3など）
+  memorySlots        Int // マザーボードにあるメモリスロットの数
+  defaultMemorySpeed String // マザーボードがデフォルトでサポートするメモリスピード
+  maxMemorySpeed     String // マザーボードがサポートする最大メモリスピード
+  socket             String // マザーボードのCPUソケットタイプ
+  pciSlots           String? // マザーボードにあるPCIスロットの数（オプショナル）
+  image              String?
+  url                String?     @db.VarChar(2048)
+  price              String?
+  lighting           String?
+  categoryId         Int
+  category           Category    @relation(fields: [categoryId], references: [id])
+  partsLists         PartsList[]
 }
 
 model Memory {
@@ -109,14 +116,12 @@ model Memory {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
-  type       String
-  capacity   String
-  setnumber  String
-  standard   String
-  interface  String
+  type       String // メモリのタイプ（例：DDR4、DDR3など）
+  frequency  String // メモリの周波数（例：3200MHz、2400MHzなど）
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
+  lighting   String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
@@ -128,11 +133,10 @@ model Hdd {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
-  series     String
-  capacity   String
-  speed      String
-  interface  String
-  cache      String
+  capacity   String // HDDの容量
+  size       String // HDDのサイズ（例：2.5インチなど）
+  speed      String // HDDの回転速度（RPM）
+  interface  String // HDDのインターフェースタイプ（例：SATA、SAS）
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -147,10 +151,9 @@ model Ssd {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
-  capacity   String
-  size       String
-  interface  String
-  ssdtype    String
+  capacity   String // SSDの容量（例：256GB、512GBなど）
+  size       String // SSDのサイズ（例：2.5インチ、M.2など）
+  interface  String // SSDのインターフェースタイプ（例：SATA、NVMeなど）
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -160,23 +163,26 @@ model Ssd {
 }
 
 model Gpu {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  brand      String
-  size       String
-  chip       String
-  core       String
-  memory     String
-  clock      String
-  interface  String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  id              Int         @id @default(autoincrement())
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  name            String
+  brand           String
+  length          String // GPUの物理的なサイズ(長さ)
+  chipset         String // GPUのチップセット（例：NVIDIAのGeForce RTX 3080）
+  core            String // GPUのコア数
+  memory          String // GPUのメモリ容量とタイプ（例：8GB GDDR6）
+  baseFrequency   String // GPUの基本動作周波数
+  memoryFrequency String // GPUのメモリ周波数
+  wattage         Int // GPUの消費電力（ワット単位）
+  videoOutput     String // 映像出力（例: "HDMI, DisplayPort"）
+  image           String?
+  url             String?     @db.VarChar(2048)
+  price           String?
+  lighting        String? // ライティング（例: "RGB, ARGB"）
+  categoryId      Int
+  category        Category    @relation(fields: [categoryId], references: [id])
+  partsLists      PartsList[]
 }
 
 model Power {
@@ -185,10 +191,9 @@ model Power {
   updatedAt     DateTime    @updatedAt
   name          String
   brand         String
-  standard      String
-  powerOutput   String
-  capacity      String
-  certification String
+  type          String // 電源ユニットの規格（例：ATX）
+  capacity      String // 電源ユニットの出力電力（例：650W）
+  certification String // 電源ユニットの認証レベル（例：80 PLUS Bronze、Silver、Gold）
   image         String?
   url           String?     @db.VarChar(2048)
   price         String?
@@ -203,9 +208,9 @@ model PcCase {
   updatedAt  DateTime    @updatedAt
   name       String
   brand      String
-  formFactor String
-  weight     String
-  size       String
+  formFactor String // PCケースが対応するマザーボードのフォームファクター（例：ATX、Micro ATX、Mini ITX）
+  weight     String // PCケースの重量
+  size       String //  PCケースのサイズ（幅×高さ×奥行きなど）
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
@@ -215,21 +220,24 @@ model PcCase {
 }
 
 model Cooler {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  name       String
-  brand      String
-  intel      String
-  amd        String
-  flowtype   String
-  noise      String
-  image      String?
-  url        String?     @db.VarChar(2048)
-  price      String?
-  categoryId Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String
+  brand       String
+  wattage     Int // クーラーの消費電力（ワット単位）
+  coolingtype String // 冷却方式（例：エアクーリング、水冷）
+  fanCount    Int // ファンの数
+  airFlow     String // 風量（CFMなど）
+  size        String // サイズ（L x W x H mm）
+  socket      String // 互換性のあるソケット（例："LGA1151, AM4, LGA2066")
+  image       String?
+  url         String?     @db.VarChar(2048)
+  price       String?
+  lighting    String?
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  partsLists  PartsList[]
 }
 
 model Display {
