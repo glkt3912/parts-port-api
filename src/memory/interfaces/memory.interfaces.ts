@@ -4,11 +4,10 @@ export interface Memory {
   updatedAt: Date;
   name: string;
   brand: string;
-  capacity: string;
-  setnumber: string;
-  standard: string;
+  type: string;
+  // setnumber: string;
+  frequency: string;
   interface: string;
-  partNumber: string;
   image?: string;
   url?: string;
   price?: string;

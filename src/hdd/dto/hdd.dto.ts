@@ -19,11 +19,11 @@ export class CreateHddDto {
 
   @IsNotEmpty()
   @IsString()
-  series: string;
+  capacity: string;
 
   @IsNotEmpty()
   @IsString()
-  capacity: string;
+  size: string;
 
   @IsNotEmpty()
   @IsString()
@@ -32,14 +32,6 @@ export class CreateHddDto {
   @IsNotEmpty()
   @IsString()
   interface: string;
-
-  @IsNotEmpty()
-  @IsString()
-  cache: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()

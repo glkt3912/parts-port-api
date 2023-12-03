@@ -4,13 +4,15 @@ export interface Cooler {
   updatedAt: Date;
   name: string;
   brand: string;
-  intel: string;
-  amd: string;
-  flowtype: string;
-  noise: string;
-  partNumber: string;
+  wattage: number;
+  coolingType: string;
+  fanCount: number;
+  airFlow: string;
+  size: string;
+  socket: string;
   image?: string;
   url?: string;
   price?: string;
+  lighting?: string;
   categoryId: number;
 }

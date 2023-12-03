@@ -4,10 +4,9 @@ export interface Power {
   updatedAt: Date;
   name: string;
   brand: string;
-  standard: string;
+  type: string;
   capacity: string;
   certification: string;
-  partNumber: string;
   image?: string;
   url?: string;
   price?: string;

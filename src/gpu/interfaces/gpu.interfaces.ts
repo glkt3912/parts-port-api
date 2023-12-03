@@ -4,12 +4,14 @@ export interface Gpu {
   updatedAt: Date;
   name: string;
   brand: string;
+  length: string;
   chip: string;
   core: string;
   memory: string;
-  clock: string;
+  baseFrequency: string;
+  memoryFrequency: string;
+  wattage: number;
   interface: string;
-  partNumber: string;
   image?: string;
   url?: string;
   price?: string;

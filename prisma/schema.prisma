@@ -77,37 +77,33 @@ model Cpu {
   core             Int // CPUのコア数
   baseFrequency    String // CPUの基本動作周波数
   boostedFrequency String // CPUのブースト時の最大周波数
-  overclockable    Boolean     @default(false) // CPUがオーバークロック可能かどうか
   image            String?
   url              String?     @db.VarChar(2048)
   price            String?
-  lighting         String?
   categoryId       Int
   category         Category    @relation(fields: [categoryId], references: [id])
   partsLists       PartsList[]
 }
 
 model MotherBoard {
-  id                 Int         @id @default(autoincrement())
-  createdAt          DateTime    @default(now())
-  updatedAt          DateTime    @updatedAt
-  name               String
-  brand              String
-  chipset            String
-  formFactor         String // マザーボードのフォームファクタ（例：ATX、Micro-ATXなど）
-  memoryType         String // マザーボードがサポートするメモリタイプ（例：DDR4、DDR3など）
-  memorySlots        Int // マザーボードにあるメモリスロットの数
-  defaultMemorySpeed String // マザーボードがデフォルトでサポートするメモリスピード
-  maxMemorySpeed     String // マザーボードがサポートする最大メモリスピード
-  socket             String // マザーボードのCPUソケットタイプ
-  pciSlots           String? // マザーボードにあるPCIスロットの数（オプショナル）
-  image              String?
-  url                String?     @db.VarChar(2048)
-  price              String?
-  lighting           String?
-  categoryId         Int
-  category           Category    @relation(fields: [categoryId], references: [id])
-  partsLists         PartsList[]
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String
+  brand       String
+  chip        String
+  formFactor  String // マザーボードのフォームファクタ（例：ATX、Micro-ATXなど）
+  memoryType  String // マザーボードがサポートするメモリタイプ（例：DDR4、DDR3など）
+  memorySlots Int // マザーボードにあるメモリスロットの数
+  maxMemory   Int // マザーボードがサポートされる最大メモリ容量
+  socket      String // マザーボードのCPUソケットタイプ
+  pciSlots    String? // マザーボードにあるPCIスロットの数（オプショナル）
+  image       String?
+  url         String?     @db.VarChar(2048)
+  price       String?
+  categoryId  Int
+  category    Category    @relation(fields: [categoryId], references: [id])
+  partsLists  PartsList[]
 }
 
 model Memory {
@@ -118,10 +114,10 @@ model Memory {
   brand      String
   type       String // メモリのタイプ（例：DDR4、DDR3など）
   frequency  String // メモリの周波数（例：3200MHz、2400MHzなど）
+  interface  String
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?
-  lighting   String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
   partsLists PartsList[]
@@ -135,7 +131,7 @@ model Hdd {
   brand      String
   capacity   String // HDDの容量
   size       String // HDDのサイズ（例：2.5インチなど）
-  speed      String // HDDの回転速度（RPM）
+  speed      String // HDDの読み込み/書き込み速度
   interface  String // HDDのインターフェースタイプ（例：SATA、SAS）
   image      String?
   url        String?     @db.VarChar(2048)
@@ -153,6 +149,7 @@ model Ssd {
   brand      String
   capacity   String // SSDの容量（例：256GB、512GBなど）
   size       String // SSDのサイズ（例：2.5インチ、M.2など）
+  speed      String // SSDの読み込み/書き込み速度
   interface  String // SSDのインターフェースタイプ（例：SATA、NVMeなど）
   image      String?
   url        String?     @db.VarChar(2048)
@@ -169,17 +166,16 @@ model Gpu {
   name            String
   brand           String
   length          String // GPUの物理的なサイズ(長さ)
-  chipset         String // GPUのチップセット（例：NVIDIAのGeForce RTX 3080）
+  chip            String // GPUのチップセット（例：NVIDIAのGeForce RTX 3080）
   core            String // GPUのコア数
   memory          String // GPUのメモリ容量とタイプ（例：8GB GDDR6）
   baseFrequency   String // GPUの基本動作周波数
   memoryFrequency String // GPUのメモリ周波数
   wattage         Int // GPUの消費電力（ワット単位）
-  videoOutput     String // 映像出力（例: "HDMI, DisplayPort"）
+  interface       String // GPUのインターフェースタイプ（例：PCI-Express 4.0 x16）
   image           String?
   url             String?     @db.VarChar(2048)
   price           String?
-  lighting        String? // ライティング（例: "RGB, ARGB"）
   categoryId      Int
   category        Category    @relation(fields: [categoryId], references: [id])
   partsLists      PartsList[]
@@ -226,7 +222,7 @@ model Cooler {
   name        String
   brand       String
   wattage     Int // クーラーの消費電力（ワット単位）
-  coolingtype String // 冷却方式（例：エアクーリング、水冷）
+  coolingType String // 冷却方式（例：エアクーリング、水冷）
   fanCount    Int // ファンの数
   airFlow     String // 風量（CFMなど）
   size        String // サイズ（L x W x H mm）
@@ -234,7 +230,6 @@ model Cooler {
   image       String?
   url         String?     @db.VarChar(2048)
   price       String?
-  lighting    String?
   categoryId  Int
   category    Category    @relation(fields: [categoryId], references: [id])
   partsLists  PartsList[]
@@ -249,9 +244,8 @@ model Display {
   size       String
   type       String
   speed      String
-  area       String
   resolution String
-  contrast   String
+  contrast   String?
   image      String?
   url        String?     @db.VarChar(2048)
   price      String?

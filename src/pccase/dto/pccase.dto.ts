@@ -20,7 +20,7 @@ export class CreatePcCaseDto {
 
   @IsNotEmpty()
   @IsString()
-  factor: string;
+  formFactor: string;
 
   @IsNotEmpty()
   @IsString()
@@ -29,10 +29,6 @@ export class CreatePcCaseDto {
   @IsNotEmpty()
   @IsString()
   size: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -63,7 +59,7 @@ export class UpdatePcCaseDto {
 
   @IsOptional()
   @IsString()
-  factor?: string;
+  formFactor?: string;
 
   @IsOptional()
   @IsString()
@@ -72,10 +68,6 @@ export class UpdatePcCaseDto {
   @IsNotEmpty()
   @IsString()
   size?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

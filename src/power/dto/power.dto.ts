@@ -20,7 +20,7 @@ export class CreatePowerDto {
 
   @IsNotEmpty()
   @IsString()
-  standard: string;
+  type: string;
 
   @IsNotEmpty()
   @IsString()
@@ -29,10 +29,6 @@ export class CreatePowerDto {
   @IsNotEmpty()
   @IsString()
   certification: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -63,7 +59,7 @@ export class UpdatePowerDto {
 
   @IsOptional()
   @IsString()
-  standard?: string;
+  type?: string;
 
   @IsOptional()
   @IsString()
@@ -72,10 +68,6 @@ export class UpdatePowerDto {
   @IsOptional()
   @IsString()
   certification?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

@@ -3,10 +3,10 @@ import {
   IsString,
   IsOptional,
   IsUrl,
-  IsNumberString,
   IsInt,
   IsPositive,
   ValidateIf,
+  IsNumberString,
 } from 'class-validator';
 
 export class CreateCoolerDto {
@@ -19,24 +19,28 @@ export class CreateCoolerDto {
   brand: string;
 
   @IsNotEmpty()
-  @IsString()
-  intel: string;
+  @IsInt()
+  wattage: number;
 
   @IsNotEmpty()
   @IsString()
-  amd: string;
+  coolingType: string;
+
+  @IsNotEmpty()
+  @IsInt()
+  fanCount: number;
 
   @IsNotEmpty()
   @IsString()
-  flowtype: string;
+  airFlow: string;
 
   @IsNotEmpty()
   @IsString()
-  noise: string;
+  size: string;
 
   @IsNotEmpty()
   @IsString()
-  partNumber: string;
+  socket: string;
 
   @IsOptional()
   @IsUrl()
@@ -54,6 +58,10 @@ export class CreateCoolerDto {
   @IsInt()
   @IsPositive()
   categoryId: number;
+
+  @IsOptional()
+  @IsString()
+  lighting?: string;
 }
 
 export class UpdateCoolerDto {
@@ -66,24 +74,28 @@ export class UpdateCoolerDto {
   brand?: string;
 
   @IsOptional()
-  @IsString()
-  intel?: string;
+  @IsInt()
+  wattage?: number;
 
   @IsOptional()
   @IsString()
-  amd?: string;
+  coolingType?: string;
+
+  @IsOptional()
+  @IsInt()
+  fanCount?: number;
 
   @IsOptional()
   @IsString()
-  flowtype?: string;
+  airFlow?: string;
 
   @IsOptional()
   @IsString()
-  noise?: string;
+  size?: string;
 
   @IsOptional()
   @IsString()
-  partNumber?: string;
+  socket?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()
@@ -101,4 +113,8 @@ export class UpdateCoolerDto {
   @IsInt()
   @IsPositive()
   categoryId?: number;
+
+  @IsOptional()
+  @IsString()
+  lighting?: string;
 }

@@ -19,6 +19,10 @@ export class CreateGpuDto {
 
   @IsNotEmpty()
   @IsString()
+  length: string;
+
+  @IsNotEmpty()
+  @IsString()
   chip: string;
 
   @IsNotEmpty()
@@ -31,15 +35,20 @@ export class CreateGpuDto {
 
   @IsNotEmpty()
   @IsString()
-  clock: string;
+  baseFrequency: string;
+
+  @IsNotEmpty()
+  @IsString()
+  memoryFrequency: string;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @IsInt()
+  wattage: number;
 
   @IsNotEmpty()
   @IsString()
   interface: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -70,6 +79,10 @@ export class UpdateGpuDto {
 
   @IsOptional()
   @IsString()
+  length?: string;
+
+  @IsOptional()
+  @IsString()
   chip?: string;
 
   @IsNotEmpty()
@@ -82,15 +95,20 @@ export class UpdateGpuDto {
 
   @IsOptional()
   @IsString()
-  clock?: string;
+  baseFrequency?: string;
+
+  @IsOptional()
+  @IsString()
+  memoryFrequency?: string;
+
+  @IsOptional()
+  @IsPositive()
+  @IsInt()
+  wattage?: number;
 
   @IsOptional()
   @IsString()
   interface?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

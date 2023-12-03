@@ -26,8 +26,22 @@ export class CreateCpuDto {
   socket: string;
 
   @IsNotEmpty()
+  @IsInt()
+  @IsPositive()
+  wattage: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  @IsPositive()
+  core: number;
+
+  @IsNotEmpty()
   @IsString()
-  partNumber: string;
+  baseFrequency: string;
+
+  @IsNotEmpty()
+  @IsString()
+  boostedFrequency: string;
 
   @IsOptional()
   @IsUrl()
@@ -64,8 +78,22 @@ export class UpdateCpuDto {
   socket?: string;
 
   @IsOptional()
+  @IsInt()
+  @IsPositive()
+  wattage?: number;
+
+  @IsOptional()
+  @IsInt()
+  @IsPositive()
+  core?: number;
+
+  @IsOptional()
   @IsString()
-  partNumber?: string;
+  baseFrequency?: string;
+
+  @IsOptional()
+  @IsString()
+  boostedFrequency?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

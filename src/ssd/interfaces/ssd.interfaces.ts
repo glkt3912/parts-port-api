@@ -7,8 +7,6 @@ export interface Ssd {
   capacity: string;
   size: string;
   interface: string;
-  ssdtype: string;
-  partNumber: string;
   image?: string;
   url?: string;
   price?: string;

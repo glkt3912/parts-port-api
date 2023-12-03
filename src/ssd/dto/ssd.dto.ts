@@ -27,15 +27,11 @@ export class CreateSsdDto {
 
   @IsNotEmpty()
   @IsString()
+  speed: string;
+
+  @IsNotEmpty()
+  @IsString()
   interface: string;
-
-  @IsNotEmpty()
-  @IsString()
-  ssdtype: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -74,15 +70,11 @@ export class UpdateSsdDto {
 
   @IsOptional()
   @IsString()
+  speed?: string;
+
+  @IsOptional()
+  @IsString()
   interface?: string;
-
-  @IsOptional()
-  @IsString()
-  ssdtype?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

@@ -19,11 +19,25 @@ export class CreateMotherBoardDto {
 
   @IsNotEmpty()
   @IsString()
-  chipset: string;
+  chip: string;
 
   @IsNotEmpty()
   @IsString()
-  formfactor: string;
+  formFactor: string;
+
+  @IsNotEmpty()
+  @IsString()
+  memoryType: string;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @IsInt()
+  memorySlots: number;
+
+  @IsNotEmpty()
+  @IsPositive()
+  @IsInt()
+  maxMemory: number;
 
   @IsNotEmpty()
   @IsString()
@@ -31,7 +45,7 @@ export class CreateMotherBoardDto {
 
   @IsNotEmpty()
   @IsString()
-  partNumber: string;
+  pciSlots: string;
 
   @IsOptional()
   @IsUrl()
@@ -62,11 +76,25 @@ export class UpdateMotherBoardDto {
 
   @IsOptional()
   @IsString()
-  chipset?: string;
+  chip?: string;
 
   @IsOptional()
   @IsString()
-  formfactor?: string;
+  formFactor?: string;
+
+  @IsOptional()
+  @IsString()
+  memoryType?: string;
+
+  @IsOptional()
+  @IsPositive()
+  @IsInt()
+  memorySlots?: number;
+
+  @IsOptional()
+  @IsPositive()
+  @IsInt()
+  maxMemory?: number;
 
   @IsOptional()
   @IsString()
@@ -74,7 +102,7 @@ export class UpdateMotherBoardDto {
 
   @IsOptional()
   @IsString()
-  partNumber?: string;
+  pciSlots?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

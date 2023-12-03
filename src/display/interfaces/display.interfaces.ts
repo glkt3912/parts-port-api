@@ -7,10 +7,8 @@ export interface Display {
   size: string;
   type: string;
   speed: string;
-  area: string;
   resolution: string;
-  contrast: string;
-  partNumber: string;
+  contrast?: string;
   image?: string;
   url?: string;
   price?: string;

@@ -19,23 +19,19 @@ export class CreateMemoryDto {
 
   @IsNotEmpty()
   @IsString()
-  capacity: string;
+  type: string;
 
   @IsNotEmpty()
   @IsString()
-  setnumber: string;
+  frequency: string;
 
-  @IsNotEmpty()
-  @IsString()
-  standard: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // setnumber: string;
 
   @IsNotEmpty()
   @IsString()
   interface: string;
-
-  @IsNotEmpty()
-  @IsString()
-  partNumber: string;
 
   @IsOptional()
   @IsUrl()
@@ -62,23 +58,19 @@ export class UpdateMemoryDto {
 
   @IsOptional()
   @IsString()
-  capacity?: string;
+  type?: string;
+
+  // @IsOptional()
+  // @IsString()
+  // setnumber?: string;
 
   @IsOptional()
   @IsString()
-  setnumber?: string;
-
-  @IsOptional()
-  @IsString()
-  standard?: string;
+  frequency?: string;
 
   @IsOptional()
   @IsString()
   interface?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

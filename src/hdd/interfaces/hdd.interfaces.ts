@@ -4,12 +4,10 @@ export interface Hdd {
   updatedAt: Date;
   name: string;
   brand: string;
-  series: string;
   capacity: string;
+  size: string;
   speed: string;
   interface: string;
-  cache: string;
-  partNumber: string;
   image?: string;
   url?: string;
   price?: string;

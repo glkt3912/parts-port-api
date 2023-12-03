@@ -12,39 +12,31 @@ import {
 export class CreateDisplayDto {
   @IsNotEmpty()
   @IsString()
-  readonly name: string;
+  name: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly brand: string;
+  brand: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly size: string;
+  size: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly type: string;
+  type: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly speed: string;
+  speed: string;
 
   @IsNotEmpty()
   @IsString()
-  readonly area: string;
+  resolution: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  readonly resolution: string;
-
-  @IsNotEmpty()
-  @IsString()
-  readonly contrast: string;
-
-  @IsNotEmpty()
-  @IsString()
-  readonly partNumber: string;
+  contrast?: string;
 
   @IsOptional()
   @IsUrl()
@@ -58,7 +50,7 @@ export class CreateDisplayDto {
   @IsNumberString()
   price?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @IsPositive()
   categoryId: number;
@@ -87,19 +79,11 @@ export class UpdateDisplayDto {
 
   @IsOptional()
   @IsString()
-  area?: string;
-
-  @IsOptional()
-  @IsString()
   resolution?: string;
 
   @IsOptional()
   @IsString()
   contrast?: string;
-
-  @IsOptional()
-  @IsString()
-  partNumber?: string;
 
   @ValidateIf((o) => o.image !== undefined)
   @IsUrl()

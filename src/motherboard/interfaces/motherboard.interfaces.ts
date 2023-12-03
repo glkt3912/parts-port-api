@@ -4,10 +4,13 @@ export interface MotherBoard {
   updatedAt: Date;
   name: string;
   brand: string;
-  chipset: string;
-  formfactor: string;
+  chip: string;
+  formFactor: string;
+  memoryType: string;
+  memorySlots: number;
+  maxMemory: number;
   socket: string;
-  partNumber: string;
+  pciSlots: string;
   image?: string;
   url?: string;
   price?: string;

@@ -6,9 +6,9 @@ export interface Cpu {
   brand: string;
   processor: string;
   socket: string;
-  partNumber: string;
-  image?: string;
-  url?: string;
-  price?: string;
+  wattage: number;
+  core: number;
+  baseFrequency: string;
+  boostedFrequency: string;
   categoryId: number;
 }
