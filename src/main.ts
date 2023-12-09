@@ -18,7 +18,7 @@ async function bootstrap() {
       cookie: {
         httpOnly: true,
         sameSite: 'none',
-        secure: true,
+        secure: false, // 本番環境では true にすること
       },
       value: (req: Request) => {
         return req.header('csrf-token');

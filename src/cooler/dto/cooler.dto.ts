@@ -20,7 +20,7 @@ export class CreateCoolerDto {
 
   @IsNotEmpty()
   @IsInt()
-  wattage: number;
+  supportedTdp: number;
 
   @IsNotEmpty()
   @IsString()
@@ -75,7 +75,7 @@ export class UpdateCoolerDto {
 
   @IsOptional()
   @IsInt()
-  wattage?: number;
+  supportedTdp?: number;
 
   @IsOptional()
   @IsString()

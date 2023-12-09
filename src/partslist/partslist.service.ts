@@ -11,13 +11,36 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { PartsList } from './interfaces/partslist.interfaces';
 import { CrudService } from 'src/interfaces/crud.interfaces';
 
+interface UserUpdateService<T> {
+  updateWithUser(
+    userId: number,
+    partslistId: number,
+    dto: PartsListDto,
+  ): Promise<PartsList>;
+}
+
 @Injectable()
-export class PartslistService implements CrudService<PartsList> {
+export class PartslistService
+  implements CrudService<PartsList>, UserUpdateService<PartsList>
+{
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<PartsList[]> {
+  async findAll(keyword?: string, page = 1, limit = 10): Promise<PartsList[]> {
+    const query: Prisma.PartsListFindManyArgs = {
+      // Prismaの型定義を使用
+      skip: (page - 1) * limit,
+      take: limit,
+    };
+    if (keyword) {
+      query.where = {
+        name: {
+          contains: keyword,
+          mode: 'insensitive', // 大文字・小文字を区別しない
+        },
+      };
+    }
     try {
-      return await this.prisma.partsList.findMany();
+      return await this.prisma.partsList.findMany(query);
     } catch (error) {
       throw new InternalServerErrorException('Failed to retrieve categories.');
     }
@@ -36,21 +59,6 @@ export class PartslistService implements CrudService<PartsList> {
       throw new InternalServerErrorException(
         `Failed to retrieve PartsList with ID ${id}.`,
       );
-    }
-  }
-
-  async search(keyword: string): Promise<PartsList[]> {
-    try {
-      return await this.prisma.partsList.findMany({
-        where: {
-          name: {
-            contains: keyword,
-            mode: 'insensitive', // 大文字・小文字を区別しない
-          },
-        },
-      });
-    } catch (error) {
-      throw new InternalServerErrorException('Search operation failed.');
     }
   }
 
@@ -73,7 +81,21 @@ export class PartslistService implements CrudService<PartsList> {
     }
   }
 
-  async update(partslistId: number, dto: PartsListDto): Promise<PartsList> {
+  // ユーザーIDを指定して更新
+  async updateWithUser(
+    userId: number,
+    partslistId: number,
+    dto: PartsListDto,
+  ): Promise<PartsList> {
+    const partsList = await this.prisma.partsList.findUnique({
+      where: { id: partslistId },
+    });
+    if (!partsList || partsList.userId !== userId) {
+      throw new ForbiddenException(
+        'Access to the specified parts list is forbidden.',
+      );
+    }
+
     try {
       const partslist = await this.prisma.partsList.update({
         where: {

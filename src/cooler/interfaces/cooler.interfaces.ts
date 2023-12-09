@@ -4,7 +4,7 @@ export interface Cooler {
   updatedAt: Date;
   name: string;
   brand: string;
-  wattage: number;
+  supportedTdp: number;
   coolingType: string;
   fanCount: number;
   airFlow: string;

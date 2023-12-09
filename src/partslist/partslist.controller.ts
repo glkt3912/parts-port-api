@@ -8,21 +8,26 @@ import {
   Put,
   Query,
   ParseIntPipe,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { PartsListDto } from './dto/parts-list.dto';
 import { PartslistService } from './partslist.service';
 
+interface AuthenticatedRequest extends Request {
+  user: any; // 漸次型定義
+}
+
+@UseGuards(AuthGuard('jwt'))
 @Controller('partslists')
 export class PartslistController {
   constructor(private readonly partslistService: PartslistService) {}
 
-  // 全てのパーツリストを取得
+  // 全てのパーツリストを取得 (キーワード検索可能)
   @Get()
   findAll(@Query('keyword') keyword?: string) {
-    if (keyword) {
-      return this.partslistService.search(keyword);
-    }
-    return this.partslistService.findAll();
+    return this.partslistService.findAll(keyword);
   }
 
   // 特定のIDを持つパーツリストを取得
@@ -31,25 +36,22 @@ export class PartslistController {
     return await this.partslistService.findOne(id);
   }
 
-  // キーワードに基づいてパーツリストを検索
-  @Get('search')
-  async search(@Query('keyword') keyword: string) {
-    return await this.partslistService.search(keyword);
-  }
-
   // 新しいパーツリストを作成
   @Post()
-  async create(@Body() dto: PartsListDto) {
-    return await this.partslistService.create(dto);
+  async create(@Body() dto: PartsListDto, @Req() req: any) {
+    const userId = req.user.id; // JWTトークンからユーザーIDを取得
+    return await this.partslistService.create({ ...dto, userId });
   }
 
   // 特定のIDを持つパーツリストを更新
   @Put(':id')
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Req() req: AuthenticatedRequest,
+    @Param('id', ParseIntPipe) partslistId: number,
     @Body() dto: PartsListDto,
   ) {
-    return await this.partslistService.update(id, dto);
+    const userId = req.user.id; // JWTトークンからユーザーIDを取得
+    return await this.partslistService.updateWithUser(userId, partslistId, dto);
   }
 
   // 特定のIDを持つパーツリストを削除

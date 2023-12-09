@@ -216,23 +216,23 @@ model PcCase {
 }
 
 model Cooler {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  name        String
-  brand       String
-  wattage     Int // クーラーの消費電力（ワット単位）
-  coolingType String // 冷却方式（例：エアクーリング、水冷）
-  fanCount    Int // ファンの数
-  airFlow     String // 風量（CFMなど）
-  size        String // サイズ（L x W x H mm）
-  socket      String // 互換性のあるソケット（例："LGA1151, AM4, LGA2066")
-  image       String?
-  url         String?     @db.VarChar(2048)
-  price       String?
-  categoryId  Int
-  category    Category    @relation(fields: [categoryId], references: [id])
-  partsLists  PartsList[]
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  name         String
+  brand        String
+  supportedTdp Int // クーラーが対応する最大TDP値（ワット単位）
+  coolingType  String // 冷却方式（例：エアクーリング、水冷）
+  fanCount     Int // ファンの数
+  airFlow      String // 風量（CFMなど）
+  size         String // サイズ（L x W x H mm）
+  socket       String // 互換性のあるソケット（例："LGA1151, AM4, LGA2066")
+  image        String?
+  url          String?     @db.VarChar(2048)
+  price        String?
+  categoryId   Int
+  category     Category    @relation(fields: [categoryId], references: [id])
+  partsLists   PartsList[]
 }
 
 model Display {

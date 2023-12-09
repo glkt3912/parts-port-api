@@ -18,27 +18,27 @@ import { Csrf, Msg } from './interfaces/auth.interface';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('/csrf')
+  @Get('/csrf') // CSRF トークンを取得するためのエンドポイント
   getCsrfToken(@Req() req: Request): Csrf {
     return { csrfToken: req.csrfToken() };
   }
 
-  @Post('signup')
+  @Post('signup') // ユーザー登録
   signUp(@Body() dto: SignUpDto): Promise<Msg> {
     return this.authService.signUp(dto);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('login')
+  @Post('login') // ログイン
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<Msg> {
     const jwt = await this.authService.login(dto);
     res.cookie('access_token', jwt.accessToken, {
-      httpOnly: true,
+      httpOnly: true, // クライアント側からは Cookie にアクセスできないようにする
       secure: true,
-      sameSite: 'none',
+      sameSite: 'none', // CSRF 対策のために必要
       path: '/',
     });
     return {
@@ -47,7 +47,7 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('/logout')
+  @Post('/logout') // ログアウト
   logout(@Req() req: Request, @Res({ passthrough: true }) res: Response): Msg {
     res.cookie('access_token', '', {
       httpOnly: true,

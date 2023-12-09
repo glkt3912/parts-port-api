@@ -6,6 +6,7 @@ export interface Ssd {
   brand: string;
   capacity: string;
   size: string;
+  speed: string;
   interface: string;
   image?: string;
   url?: string;
