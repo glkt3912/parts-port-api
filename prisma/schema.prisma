@@ -14,7 +14,7 @@ model User {
   email          String      @unique
   hashedPassword String
   name           String      @unique
-  partsLists     PartsList[]
+  partsList      PartsList[]
 }
 
 model Category {
@@ -82,7 +82,7 @@ model Cpu {
   price            String?
   categoryId       Int
   category         Category    @relation(fields: [categoryId], references: [id])
-  partsLists       PartsList[]
+  partsList        PartsList[]
 }
 
 model MotherBoard {
@@ -103,7 +103,7 @@ model MotherBoard {
   price       String?
   categoryId  Int
   category    Category    @relation(fields: [categoryId], references: [id])
-  partsLists  PartsList[]
+  partsList   PartsList[]
 }
 
 model Memory {
@@ -120,7 +120,7 @@ model Memory {
   price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  partsList  PartsList[]
 }
 
 model Hdd {
@@ -138,7 +138,7 @@ model Hdd {
   price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  partsList  PartsList[]
 }
 
 model Ssd {
@@ -156,7 +156,7 @@ model Ssd {
   price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  partsList  PartsList[]
 }
 
 model Gpu {
@@ -178,7 +178,7 @@ model Gpu {
   price           String?
   categoryId      Int
   category        Category    @relation(fields: [categoryId], references: [id])
-  partsLists      PartsList[]
+  partsList       PartsList[]
 }
 
 model Power {
@@ -195,7 +195,7 @@ model Power {
   price         String?
   categoryId    Int
   category      Category    @relation(fields: [categoryId], references: [id])
-  partsLists    PartsList[]
+  partsList     PartsList[]
 }
 
 model PcCase {
@@ -212,7 +212,7 @@ model PcCase {
   price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  partsList  PartsList[]
 }
 
 model Cooler {
@@ -232,7 +232,7 @@ model Cooler {
   price        String?
   categoryId   Int
   category     Category    @relation(fields: [categoryId], references: [id])
-  partsLists   PartsList[]
+  partsList    PartsList[]
 }
 
 model Display {
@@ -251,5 +251,5 @@ model Display {
   price      String?
   categoryId Int
   category   Category    @relation(fields: [categoryId], references: [id])
-  partsLists PartsList[]
+  partsList  PartsList[]
 }

@@ -20,7 +20,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('partslists')
+@Controller('partslist')
 export class PartslistController {
   constructor(private readonly partslistService: PartslistService) {}
 

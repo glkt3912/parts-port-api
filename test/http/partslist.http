@@ -5,28 +5,28 @@
 
 ###
 # 全てのパーツリストを取得
-GET {{host}}/partslists
+GET {{host}}/partslist
 content-type: {{contentType}}
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}
 
 ###
 # 特定のIDを持つパーツリストを取得
-GET {{host}}/partslists/1
+GET {{host}}/partslist/1
 content-type: {{contentType}}
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}
 
 ###
 # キーワードに基づいてパーツリストを検索
-GET {{host}}/partslists/search?keyword=cpu
+GET {{host}}/partslist/search?keyword=cpu
 content-type: {{contentType}}
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}
 
 ###
 # 新しいパーツリストを作成
-POST {{host}}/partslists
+POST {{host}}/partslist
 Content-Type: {{contentType}}
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}
@@ -49,7 +49,7 @@ csrf-token: {{csrfToken}}
 
 ###
 # 特定のIDを持つパーツリストを更新
-PUT {{host}}/partslists/1
+PUT {{host}}/partslist/1
 Content-Type: {{contentType}}
 Accept: {{contentType}}
 csrf-token: {{csrfToken}}
@@ -72,6 +72,6 @@ csrf-token: {{csrfToken}}
 
 ###
 # 特定のIDを持つパーツリストを削除
-DELETE {{host}}/partslists/1
+DELETE {{host}}/partslist/1
 content-type: {{contentType}}
 csrf-token: {{csrfToken}}

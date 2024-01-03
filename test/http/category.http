@@ -6,7 +6,7 @@ content-type: application/json
 POST http://localhost:3010/auth/signup HTTP/1.1
 content-type: application/json
 Accept: application/json
-csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
+csrf-token: PJfD5YYM--qo2yVEzj6Yae1UnUIUlgU7ARHk
 
 {
     "name": "tester",
@@ -18,7 +18,7 @@ csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
 POST http://localhost:3010/auth/login HTTP/1.1
 content-type: application/json
 Accept: application/json
-csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
+csrf-token: PJfD5YYM--qo2yVEzj6Yae1UnUIUlgU7ARHk
 
 {
     "email": "user1@test.com",
@@ -29,7 +29,7 @@ csrf-token: HriR5oX9-tOGj9aFLDzzdKwfsnBTWLsAfoYc
 POST http://localhost:3010/category/create HTTP/1.1
 content-type: application/json
 Accept: application/json
-csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
+csrf-token: PJfD5YYM--qo2yVEzj6Yae1UnUIUlgU7ARHk
 
 {
     "name": "Display2 TEST"
@@ -39,4 +39,4 @@ csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
 GET http://localhost:3010/category
 content-type: application/json
 Accept: application/json
-csrf-token: o4yOrtxB-TyOT0oiHzeuYgCVyvmczoQz2u1k
+csrf-token: PJfD5YYM--qo2yVEzj6Yae1UnUIUlgU7ARHk
