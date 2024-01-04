@@ -154,23 +154,49 @@ async function main() {
         price: '50818',
         url: 'https://pg.asrock.com/mb/Intel/Z690%20Phantom%20Gaming-ITXTB4/index.jp.asp',
       },
+      {
+        name: 'MSI PRO Z790-A WIFI DDR4 INTEL',
+        brand: 'MSI',
+        chip: 'INTEL Z790',
+        formFactor: 'ATX',
+        memoryType: 'DDR4',
+        memorySlots: 4,
+        maxMemory: 128,
+        socket: 'LGA1700',
+        pciSlots: '×1(PCIe 5.0 x16)、×1(PCIe 4.0 x16)、×2(PCIe 3.0 x1)',
+        categoryId: motherboardCategory.id,
+        price: '31835',
+        url: 'https://pg.asrock.com/mb/Intel/Z690%20Phantom%20Gaming-ITXTB4/index.jp.asp',
+      },
     ],
   });
 
-  await prisma.memory.create({
-    data: {
-      name: 'Corsair Vengeance LPX 16GB',
-      brand: 'Corsair',
-      type: 'DDR4',
-      frequency: '3200MHz',
-      interface: 'DIMM288pin',
-      image: 'url_to_image',
-      url: 'url_to_product_page',
-      price: '8000',
-      categoryId: memoryCategory.id,
-    },
+  await prisma.memory.createMany({
+    data: [
+      {
+        name: 'Corsair Vengeance LPX 16GB',
+        brand: 'Corsair',
+        type: 'DDR4',
+        frequency: '3200MHz',
+        interface: 'DIMM288pin',
+        image: '',
+        url: '',
+        price: '8000',
+        categoryId: memoryCategory.id,
+      },
+      {
+        name: 'Team DDR4 3200Mhz PC4-25600 16GBx2枚（32GBkit） デスクトップ用メモリ Elite Plus',
+        brand: 'Team',
+        type: 'DDR4',
+        frequency: '3200MHz',
+        interface: '288Pin DDR4-UDIMM',
+        image: '',
+        url: 'https://www.teamgroupinc.com/jp/product-detail/memory/desktop/vulcan-z-ddr4-red/vulcan-z-ddr4-red-TLZRD416G4000HC18JDC01/',
+        price: '12980',
+        categoryId: memoryCategory.id,
+      },
+    ],
   });
-
   await prisma.gpu.createMany({
     data: [
       {
@@ -214,8 +240,8 @@ async function main() {
       size: '3.5 inch',
       speed: '7200 RPM',
       interface: 'SATA 6Gb/s',
-      image: 'url_to_image',
-      url: 'url_to_product_page',
+      image: '',
+      url: '',
       price: '6000',
       categoryId: hddCategory.id,
     },
@@ -242,6 +268,17 @@ async function main() {
         interface: 'PCI-Express Gen4',
         url: 'https://www.westerndigital.com/ja-jp',
         price: '9480',
+        categoryId: ssdCategory.id,
+      },
+      {
+        name: 'Monster Storage SSD 4TB',
+        brand: 'MonsterStorage',
+        capacity: '4TB',
+        size: 'M.2(type2280)',
+        speed: '7100MB/s',
+        interface: 'PCI-Express Gen4',
+        url: 'https://taurus-digital.co.jp/products/ms950g70pcie4hse-02tb/',
+        price: '29800',
         categoryId: ssdCategory.id,
       },
     ],
@@ -277,6 +314,16 @@ async function main() {
         certification: '80 PLUS Bronze',
         url: 'https://www.kuroutoshikou.com/product/detail/krpw-bk650w-85-.html',
         price: '7673',
+        categoryId: powerCategory.id,
+      },
+      {
+        name: 'Corsair HX850i',
+        brand: 'Corsair',
+        type: 'ATX',
+        capacity: '850W',
+        certification: '80 PLUS PLATINUM',
+        url: 'https://www.kuroutoshikou.com/product/detail/krpw-bk650w-85-.html',
+        price: '17000',
         categoryId: powerCategory.id,
       },
     ],
@@ -317,8 +364,8 @@ async function main() {
         airFlow: '42 CFM',
         size: '120 x 79 x 158 mm',
         socket: 'LGA1151, AM4, LGA2066',
-        image: 'url_to_image',
-        url: 'url_to_product_page',
+        image: '',
+        url: '',
         price: '3000',
         categoryId: coolerCategory.id,
       },
@@ -369,24 +416,85 @@ async function main() {
   // ユーザーの作成
   const user = await prisma.user.create({
     data: {
-      email: 'user@example.com',
-      hashedPassword: 'pass', // 実際にはハッシュ化されたパスワードを使用
-      name: 'John Doe',
+      name: 'tester',
+      email: 'user1@test.com',
+      hashedPassword: 'user1', // 実際にはハッシュ化されたパスワードを使用
     },
   });
 
-  // パーツリストの作成（例）
-  const partsList = await prisma.partsList.create({
+  const cpu = await prisma.cpu.findFirst({
+    where: {
+      name: 'Intel Core i7-13700KF BOX',
+    },
+  });
+
+  const gpu = await prisma.gpu.findFirst({
+    where: {
+      name: 'GeForce RTX 4070 Ti VENTUS 3X 12G OC VD8370',
+    },
+  });
+
+  const motherBoard = await prisma.motherBoard.findFirst({
+    where: {
+      name: 'MSI PRO Z790-A WIFI DDR4 INTEL',
+    },
+  });
+
+  const memory = await prisma.memory.findFirst({
+    where: {
+      name: {
+        startsWith: 'Team DDR4 3200Mhz PC4-25600',
+      },
+    },
+  });
+
+  const hdd = await prisma.hdd.findFirst({
+    where: {
+      name: 'Seagate Barracuda 2TB',
+    },
+  });
+
+  const ssd = await prisma.ssd.findFirst({
+    where: {
+      name: 'Monster Storage SSD 4TB',
+    },
+  });
+
+  const cooler = await prisma.cooler.findFirst({
+    where: {
+      name: 'DeepCool ASSASSIN IV',
+    },
+  });
+
+  const pcCase = await prisma.pcCase.findFirst({
+    where: {
+      name: 'MasterBox Q500L MCB-Q500L-KANN-S01',
+    },
+  });
+
+  const power = await prisma.power.findFirst({
+    where: {
+      name: 'Corsair HX850i',
+    },
+  });
+
+  await prisma.partsList.create({
     data: {
-      name: 'My First Build',
-      description: 'This is my first PC build.',
+      name: 'My Custom PC Build',
+      description: 'This is a sample parts list for a custom PC build.',
       isOpened: true,
       userId: user.id,
-      // 他のパーツIDを指定...
+      cpuId: cpu.id,
+      gpuId: gpu.id,
+      motherboardId: motherBoard.id,
+      memoryId: memory.id,
+      hddId: hdd.id,
+      ssdId: ssd.id,
+      coolerId: cooler.id,
+      pccaseId: pcCase.id,
+      powerId: power.id,
     },
   });
-
-  // 他のデータも同様に作成...
 }
 
 main()
