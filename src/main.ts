@@ -2,11 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { Request } from 'express';
+import { MyLoggerService } from './my-logger/my-logger.service';
 import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: false, // NestJSのデフォルトロガーを無効化
+  });
+  app.useLogger(app.get(MyLoggerService));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors({
     credentials: true,

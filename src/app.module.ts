@@ -23,6 +23,8 @@ import { PowerModule } from './power/power.module';
 import { PccaseModule } from './pccase/pccase.module';
 import { CoolerModule } from './cooler/cooler.module';
 import { DisplayModule } from './display/display.module';
+import { MyLoggerService } from './my-logger/my-logger.service';
+import { MyLoggerModule } from './my-logger/my-logger.module';
 
 @Module({
   imports: [
@@ -42,8 +44,9 @@ import { DisplayModule } from './display/display.module';
     PccaseModule,
     CoolerModule,
     DisplayModule,
+    MyLoggerModule,
   ],
   controllers: [AppController, CpuController, HddController, SsdController],
-  providers: [AppService, CpuService, HddService, SsdService],
+  providers: [AppService, CpuService, HddService, SsdService, MyLoggerService],
 })
 export class AppModule {}
