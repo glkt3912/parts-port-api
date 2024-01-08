@@ -59,4 +59,10 @@ export class PartslistController {
   async delete(@Param('id', ParseIntPipe) id: number) {
     await this.partslistService.delete(id);
   }
+
+  // ユーザーIDに基づいてパーツリストを取得
+  @Get('user/:userId')
+  async findAllByUserId(@Param('userId', ParseIntPipe) userId: number) {
+    return await this.partslistService.findAllByUserId(userId);
+  }
 }

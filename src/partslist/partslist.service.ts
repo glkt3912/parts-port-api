@@ -140,6 +140,14 @@ export class PartslistService
     }
   }
 
+  async findAllByUserId(userId: number): Promise<PartsList[]> {
+    return await this.prisma.partsList.findMany({
+      where: {
+        OR: [{ userId: userId }, { isOpened: true }],
+      },
+    });
+  }
+
   /**
    *
    * @param dto
