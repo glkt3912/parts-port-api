@@ -25,24 +25,27 @@ export class PartslistService
 {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(keyword?: string, page = 1, limit = 10): Promise<PartsList[]> {
+  async findAll(keyword?: string): Promise<PartsList[]> {
     const query: Prisma.PartsListFindManyArgs = {
-      // Prismaの型定義を使用
-      skip: (page - 1) * limit,
-      take: limit,
+      where: {
+        isOpened: true, // 公開のリストのみ
+      },
     };
     if (keyword) {
-      query.where = {
-        name: {
-          contains: keyword,
-          mode: 'insensitive', // 大文字・小文字を区別しない
+      query.where.AND = [
+        {
+          OR: [
+            // 'insensitive'は大文字・小文字を区別しない設定
+            { name: { contains: keyword, mode: 'insensitive' } },
+            { description: { contains: keyword, mode: 'insensitive' } },
+          ],
         },
-      };
+      ];
     }
     try {
       return await this.prisma.partsList.findMany(query);
     } catch (error) {
-      throw new InternalServerErrorException('Failed to retrieve categories.');
+      throw new InternalServerErrorException('Failed to retrieve PartsLists.');
     }
   }
 
